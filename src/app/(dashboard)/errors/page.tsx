@@ -8,9 +8,10 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { useState } from "react";
-CardDescription;
+import { useRouter } from "next/navigation"; // Add router import
 
 const ErrorPageFixing = () => {
+  const router = useRouter(); // Initialize router
   const [playerName, setPlayerName] = useState("");
   const [playerPosition, setPlayerPosition] = useState("");
   const [playerTeam, setPlayerTeam] = useState("");
@@ -33,6 +34,8 @@ const ErrorPageFixing = () => {
       console.error("Failed to create player");
     } else {
       console.log("Player created successfully");
+      // Redirect to players-info page after successful creation
+      router.push('/players-info');
     }
   };
 

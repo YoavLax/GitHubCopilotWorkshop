@@ -1,22 +1,15 @@
 import React from "react";
 
 export default async function NBAScores() {
-  const url = new URL("https://apiv2.allsportsapi.com/basketball/");
+  const response = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/nba-results`, {
+    next: { revalidate: 300 }, // Cache for 5 minutes
+  });
 
-  const params = {
-    met: "Fixtures",
-    APIkey: process.env.NEXT_PUBLIC_NBA_API_KEY,
-    from: "2025-03-01",
-    to: "2025-03-14",
-    leagueId: 766,
-  };
-  const urlWithParams = `${url}?${new URLSearchParams(
-    params as any
-  ).toString()}`;
+  if (!response.ok) {
+    throw new Error('Failed to fetch NBA scores');
+  }
 
-  const response = await fetch(urlWithParams);
   const games = await response.json();
-
   const results = games.result;
 
   console.log(results);

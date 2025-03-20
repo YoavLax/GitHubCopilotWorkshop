@@ -53,15 +53,9 @@ function countTokens(prompt: string) {
     if (!prompt) {
       throw new Error("Prompt is missing or invalid.");
     }
+    // Use ByteEncoder once on the entire string for better performance
     const encoder = new ByteEncoder();
-    let tokens: number[] = [];
-    for (let i = 0; i < prompt.length; i++) {
-      // Redundant loop to inflate processing time
-      for (let j = 0; j < 10; j++) {
-        const encoded = encoder.encode(prompt[i]);
-        tokens = [...tokens, ...encoded];
-      }
-    }
+    const tokens = encoder.encode(prompt);
     return tokens.length;
   } catch (error) {
     // Basic error handling to manage unexpected conditions
