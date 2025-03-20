@@ -1,15 +1,23 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
-// Function to fetch player data from our API
+interface Player {
+  id: number;
+  name: string;
+  team: string;
+  position: string;
+  height: string;
+  weight: string;
+}
+
 async function getPlayers() {
   try {
-    // Disable cache to always get fresh data
-    const res = await fetch('http://localhost:3000/api/player-info', {
-      cache: 'no-store', // Disable caching to always get fresh data
-      next: { revalidate: 0 } // Disable revalidation
+    const res = await fetch('/api/player-info', {
+      cache: 'no-store',
+      next: { revalidate: 0 }
     });
 
     if (!res.ok) {
@@ -24,36 +32,33 @@ async function getPlayers() {
 }
 
 export default async function PlayersInfo() {
-  const players = await getPlayers();
+  const players: Player[] = await getPlayers();
 
   return (
-    <div className="container mx-auto py-8">
-      <h1 className="text-2xl font-bold mb-6">NBA Players Information</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {players.map((player: any) => (
-          <Card key={player.id} className="hover:shadow-lg transition-shadow">
-            <CardHeader>
-              <CardTitle className="text-xl">{player.name}</CardTitle>
+    <div className="container mx-auto py-8 px-4">
+      <h1 className="text-3xl font-bold mb-8 text-center">NBA Players</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {players.map((player) => (
+          <Card key={player.id} className="hover:shadow-xl transition-shadow duration-300">
+            <CardHeader className="bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-t-lg">
+              <CardTitle className="text-xl font-bold">{player.name}</CardTitle>
+              <Badge className="bg-white/20 hover:bg-white/30">{player.position}</Badge>
             </CardHeader>
-            <CardContent>
-              <dl className="space-y-2">
-                <div className="flex justify-between">
-                  <dt className="font-medium">Team:</dt>
-                  <dd className="text-gray-600">{player.team}</dd>
+            <CardContent className="pt-6 space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <p className="text-sm font-medium text-gray-500">Team</p>
+                  <p className="font-semibold">{player.team}</p>
                 </div>
-                <div className="flex justify-between">
-                  <dt className="font-medium">Position:</dt>
-                  <dd className="text-gray-600">{player.position}</dd>
+                <div className="space-y-2">
+                  <p className="text-sm font-medium text-gray-500">Height</p>
+                  <p className="font-semibold">{player.height}</p>
                 </div>
-                <div className="flex justify-between">
-                  <dt className="font-medium">Height:</dt>
-                  <dd className="text-gray-600">{player.height}</dd>
+                <div className="space-y-2">
+                  <p className="text-sm font-medium text-gray-500">Weight</p>
+                  <p className="font-semibold">{player.weight}</p>
                 </div>
-                <div className="flex justify-between">
-                  <dt className="font-medium">Weight:</dt>
-                  <dd className="text-gray-600">{player.weight}</dd>
-                </div>
-              </dl>
+              </div>
             </CardContent>
           </Card>
         ))}

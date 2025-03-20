@@ -4,7 +4,7 @@ import Link from "next/link";
 import { GoHome, GoHomeFill } from "react-icons/go";
 
 import { CiBasketball } from "react-icons/ci";
-import { FaBasketball } from "react-icons/fa6";
+import { FaBasketball, FaWarehouse } from "react-icons/fa6";
 import { IoPeopleOutline, IoPeopleSharp } from "react-icons/io5";
 import { SiGithubcopilot } from "react-icons/si";
 import { MdOutlineSportsHandball } from "react-icons/md";
@@ -21,6 +21,12 @@ const routes = [
     href: "/nba-scores",
     icon: CiBasketball,
     activeIcon: FaBasketball,
+  },
+  {
+    label: "Stadiums",
+    href: "/stadiums",
+    icon: FaWarehouse,
+    activeIcon: FaWarehouse,
   },
   {
     label: "Players Info",
