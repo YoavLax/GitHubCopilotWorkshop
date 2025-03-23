@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -15,19 +13,34 @@ interface Player {
 
 async function getPlayers() {
   try {
-    const res = await fetch('/api/player-info', {
+    // Use absolute URL with the current origin
+    const origin = process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : "http://localhost:3000";
+      
+    const res = await fetch(`${origin}/api/player-info`, {
       cache: 'no-store',
-      next: { revalidate: 0 }
+      next: { revalidate: 0 },
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
 
     if (!res.ok) {
-      throw new Error(`Failed to fetch players: ${res.statusText}`);
+      const errorData = await res.json().catch(() => ({}));
+      console.error('API Error Response:', errorData);
+      throw new Error(errorData.error || `Failed to fetch players: ${res.statusText}`);
     }
 
-    return res.json();
+    const data = await res.json();
+    if (!Array.isArray(data)) {
+      throw new Error('Invalid data format received from API');
+    }
+
+    return data as Player[];
   } catch (error) {
     console.error('Error fetching players:', error);
-    throw new Error('Failed to load player information');
+    throw new Error('Failed to load player information. Please try again later.');
   }
 }
 
