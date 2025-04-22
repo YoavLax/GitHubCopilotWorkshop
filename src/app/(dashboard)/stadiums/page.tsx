@@ -1,7 +1,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import StadiumImage from "@/components/StadiumImage";
-import Image from "next/image";
-import { headers } from 'next/headers';
+
+// Mark this route as dynamic
+export const dynamic = 'force-dynamic';
 
 interface Stadium {
   id: number;
@@ -15,17 +16,10 @@ interface Stadium {
 
 async function getStadiums() {
   try {
-    // Get the host from headers to construct the full URL
-    const headersList = headers();
-    const host = headersList.get('host') || 'localhost:3000';
-    const protocol = process.env.NODE_ENV === 'development' ? 'http' : 'https';
-    
-    // Construct the full URL
-    const url = `${protocol}://${host}/api/stadiums`;
-    
-    const response = await fetch(url, {
-      // Use only cache: no-store for development
-      cache: 'no-store'
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}/api/stadiums`, {
+      next: {
+        revalidate: 3600 // Revalidate every hour
+      }
     });
     
     if (!response.ok) {

@@ -2,6 +2,9 @@ import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
+// Mark this route as dynamic
+export const dynamic = 'force-dynamic';
+
 interface Player {
   id: number;
   name: string;
@@ -13,17 +16,12 @@ interface Player {
 
 async function getPlayers() {
   try {
-    // Use absolute URL with the current origin
-    const origin = process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : "http://localhost:3000";
+    const origin = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
       
     const res = await fetch(`${origin}/api/player-info`, {
-      cache: 'no-store',
-      next: { revalidate: 0 },
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      next: {
+        revalidate: 3600 // Revalidate every hour
+      }
     });
 
     if (!res.ok) {
