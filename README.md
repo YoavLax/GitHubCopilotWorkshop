@@ -165,24 +165,24 @@ With real-time updates and customizable notifications, GC is perfect for fans wh
       - Ask Copilot Chat to "optimize this code" while the relevant route.ts is in the chat context.
       - Make the necessary adjustments, then reload the page and make sure it loads fast.
 
-   - Optimize with o1 model:
+   - Optimize with o3 model:
       - Click on 'Optimization-o1' page in the web app. left menu 
       - Wait until the page finishes loading
-      - Your goal is to optimize the code using the o1-preview model
+      - Your goal is to optimize the code using the o3 (preview) model
       - Find the API route in the code (you can use #codebase to help locate it).
-      - Select the countTokens function code and open inline chat (press ctrl+i (windows) / cmd + i (macos)) and **switch to o1-preview model**
+      - Select the countTokens function code and open inline chat (press ctrl+i (windows) / cmd + i (macos)) and **switch to o3 (preview) model**
       - Type /optimize
       - Make the necessary adjustments, then try accessing the page again
       
       > Did you know? 
-      **o1-preview** model is focused on advanced reasoning and solving complex problems, in particular in math and science. It responds more slowly than the GPT-4o model.
+      **o3 (preview)** model is focused on advanced reasoning and solving complex problems, in particular in math and science. It responds more slowly than the GPT-4o model.
       **o3-mini** model is the next generation of reasoning models, following from o1 and o1-mini. The o3-mini model outperforms o1 on coding benchmarks with response times that are comparable to o1-mini, providing improved quality at nearly the same latency. It is best suited for code generation and small context operations
 
 ---
 
 9. **GitHub Copilot Code Reviews**
    
-   ❗**NOTE**: Supported Only in VS Code Insiders❗
+   ❗**NOTE**: Supported Only in VS Code❗
 
    GitHub Copilot can review your code and provide feedback. Where possible, Copilot's feedback includes suggested changes which you can apply with a couple of clicks.
    - Open the /app/api/nba-results/route.ts file 
@@ -223,7 +223,7 @@ With real-time updates and customizable notifications, GC is perfect for fans wh
   
 ## Task 2 - Copilot Agent Mode
 
-❗**NOTE**: Supported Only in VS Code **Insiders** IDE❗
+❗**NOTE**: Supported Only in VS Code❗
 
 1. **Add Stadiums feature using GitHub Copilot Agents** 
     GitHub Copilot’s new agent mode is capable of iterating on its own code, recognizing errors, and fixing them automatically. It can suggest terminal commands and ask you to execute them. It also analyzes run-time errors with self-healing capabilities.
@@ -251,4 +251,498 @@ With real-time updates and customizable notifications, GC is perfect for fans wh
 
 3.  **Bonus - change UI using Github Copilot Vision**
      - Open the Copilot Chat and select Gpt-4o model 
-     - Get some common UI you like and ask your agent to make your application as similar as possible. 
+     - Get some common UI you like and ask your agent to make your application as similar as possible.
+  
+## Task 3 - MCP Servers (Bonus)
+
+❗**NOTE**: Supported Only in VS Code IDE❗
+
+# Pre-requisites
+- Docker Running
+- GitHub PAT (Personal Access Token)
+
+1. **Enable Agent mode if not already enabled:**
+   - File - > Preferences -> Settings -> search 'agent' and enable the feature
+   - If it doesn't work - Restart/Update VS Code
+
+2.  **Activate MCP**
+     - File -> Preferences -> Settings -> search 'MCP' and enable the feature
+  
+3.  **Add GitHub MCP Server**
+     - File -> Preferences -> Settings -> search 'MCP' and click 'edit in settings.json'
+       > Note: You can also switch to agent mode -> choose the tools icon -> Add More Tools... -> Add MCP Server... -> continue to choose the right option for the desired MCP server
+
+4.  **Add the following (if there are additional mcp servers, add only the relevant code blocks)**
+```{
+  "mcp": {
+    "inputs": [
+      {
+        "type": "promptString",
+        "id": "github_token",
+        "description": "GitHub Personal Access Token",
+        "password": true
+      }
+    ],
+    "servers": {
+      "github": {
+        "command": "docker",
+        "args": [
+          "run",
+          "-i",
+          "--rm",
+          "-e",
+          "GITHUB_PERSONAL_ACCESS_TOKEN",
+          "ghcr.io/github/github-mcp-server"
+        ],
+        "env": {
+          "GITHUB_PERSONAL_ACCESS_TOKEN": "${input:github_token}"
+        }
+      }
+    }
+  }
+}
+```
+
+5.  **Refresh the tools and enter the GitHub PAT**
+     - Go to the agent mode window -> click the server icon
+     - A field will appear asking for your GitHUB Personal Access Token -> Enter it
+  
+6.  **Use GitHub MCP tools**
+     - Prompt the agent! Here is an example prompt:
+     ```Create a new GitHub repository with the name - agent-demo, make sure it's private.
+        To this new repo, create a new branch which I would be the owner of, named - agent-branch.
+        Then push this project to the agent-branch and create a new pull request which I would be the owner of, in the new repository you just created. Call it - first PR. Main branch is the base.
+        ```
+> Note: You can review all GitHub MCP Server available tools here: https://github.com/github/github-mcp-server
+
+## Task 4 - Build your own MCP Server (Bonus)
+In this tutorial, we'll build a simple MCP weather server.
+We'll start with a basic setup, and then progress to more complex use cases. 
+
+### What we'll be building
+Many LLMs do not currently have the ability to fetch the forecast and severe weather alerts. Let's use MCP to solve that!
+
+We'll build a server that exposes two tools: `get-alerts` and `get-forecast`. Then we'll connect the server to an MCP host (in this case, GitHub Copilot in VS Code): 
+
+
+### Core MCP Concepts
+
+MCP servers can provide three main types of capabilities:
+
+1. **Resources**: File-like data that can be read by clients (like API responses or file contents)
+2. **Tools**: Functions that can be called by the LLM (with user approval)
+3. **Prompts**: Pre-written templates that help users accomplish specific tasks
+
+This tutorial will primarily focus on tools.
+Let's get started with building our weather server! [You can find the complete code for what we'll be building here.](https://github.com/modelcontextprotocol/quickstart-resources/tree/main/weather-server-typescript)
+
+### System requirements
+ * Latest version of Node installed
+
+### Set up your environment
+
+First, let’s install Node.js and npm if you haven’t already. You can download them from nodejs.org. Verify your Node.js installation:
+```node --version
+npm --version
+```
+For this tutorial, you’ll need Node.js version 16 or higher.
+
+Now, let's create and set up our project:
+
+```bash MacOS/Linux
+# Create a new directory for our project
+mkdir weather
+cd weather
+
+# Initialize a new npm project
+npm init -y
+
+# Install dependencies
+npm install @modelcontextprotocol/sdk zod
+npm install -D @types/node typescript
+
+# Create our files
+mkdir src
+touch src/index.ts
+```
+
+```powershell Windows
+# Create a new directory for our project
+md weather
+cd weather
+
+# Initialize a new npm project
+npm init -y
+
+# Install dependencies
+npm install @modelcontextprotocol/sdk zod
+npm install -D @types/node typescript
+
+# Create our files
+md src
+new-item src\index.ts
+```
+Update your package.json to add type: “module” and a build script:
+```{
+  "type": "module",
+  "bin": {
+    "weather": "./build/index.js"
+  },
+  "scripts": {
+    "build": "tsc && chmod 755 build/index.js"
+  },
+  "files": [
+    "build"
+  ],
+}
+```
+Create a tsconfig.json in the root of your project:
+```{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "Node16",
+    "moduleResolution": "Node16",
+    "outDir": "./build",
+    "rootDir": "./src",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
+}
+```
+
+Now let's dive into building your server.
+
+## Building your server
+
+### Importing packages and setting up the instance
+
+Add these to the top of your src/index.ts:
+
+```typescript
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import { z } from "zod";
+
+const NWS_API_BASE = "https://api.weather.gov";
+const USER_AGENT = "weather-app/1.0";
+
+// Create server instance
+const server = new McpServer({
+  name: "weather",
+  version: "1.0.0",
+  capabilities: {
+    resources: {},
+    tools: {},
+  },
+});
+```
+
+### Helper functions
+
+Next, let's add our helper functions for querying and formatting the data from the National Weather Service API:
+
+    ```typescript
+// Helper function for making NWS API requests
+async function makeNWSRequest<T>(url: string): Promise<T | null> {
+  const headers = {
+    "User-Agent": USER_AGENT,
+    Accept: "application/geo+json",
+  };
+
+  try {
+    const response = await fetch(url, { headers });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return (await response.json()) as T;
+  } catch (error) {
+    console.error("Error making NWS request:", error);
+    return null;
+  }
+}
+
+interface AlertFeature {
+  properties: {
+    event?: string;
+    areaDesc?: string;
+    severity?: string;
+    status?: string;
+    headline?: string;
+  };
+}
+
+// Format alert data
+function formatAlert(feature: AlertFeature): string {
+  const props = feature.properties;
+  return [
+    `Event: ${props.event || "Unknown"}`,
+    `Area: ${props.areaDesc || "Unknown"}`,
+    `Severity: ${props.severity || "Unknown"}`,
+    `Status: ${props.status || "Unknown"}`,
+    `Headline: ${props.headline || "No headline"}`,
+    "---",
+  ].join("\n");
+}
+
+interface ForecastPeriod {
+  name?: string;
+  temperature?: number;
+  temperatureUnit?: string;
+  windSpeed?: string;
+  windDirection?: string;
+  shortForecast?: string;
+}
+
+interface AlertsResponse {
+  features: AlertFeature[];
+}
+
+interface PointsResponse {
+  properties: {
+    forecast?: string;
+  };
+}
+
+interface ForecastResponse {
+  properties: {
+    periods: ForecastPeriod[];
+  };
+}```
+
+### Implementing tool execution
+The tool execution handler is responsible for actually executing the logic of each tool. Let's add it:
+
+    ```typescript
+// Register weather tools
+server.tool(
+  "get-alerts",
+  "Get weather alerts for a state",
+  {
+    state: z.string().length(2).describe("Two-letter state code (e.g. CA, NY)"),
+  },
+  async ({ state }) => {
+    const stateCode = state.toUpperCase();
+    const alertsUrl = `${NWS_API_BASE}/alerts?area=${stateCode}`;
+    const alertsData = await makeNWSRequest<AlertsResponse>(alertsUrl);
+
+    if (!alertsData) {
+      return {
+        content: [
+          {
+            type: "text",
+            text: "Failed to retrieve alerts data",
+          },
+        ],
+      };
+    }
+
+    const features = alertsData.features || [];
+    if (features.length === 0) {
+      return {
+        content: [
+          {
+            type: "text",
+            text: `No active alerts for ${stateCode}`,
+          },
+        ],
+      };
+    }
+
+    const formattedAlerts = features.map(formatAlert);
+    const alertsText = `Active alerts for ${stateCode}:\n\n${formattedAlerts.join("\n")}`;
+
+    return {
+      content: [
+        {
+          type: "text",
+          text: alertsText,
+        },
+      ],
+    };
+  },
+);
+
+server.tool(
+  "get-forecast",
+  "Get weather forecast for a location",
+  {
+    latitude: z.number().min(-90).max(90).describe("Latitude of the location"),
+    longitude: z.number().min(-180).max(180).describe("Longitude of the location"),
+  },
+  async ({ latitude, longitude }) => {
+    // Get grid point data
+    const pointsUrl = `${NWS_API_BASE}/points/${latitude.toFixed(4)},${longitude.toFixed(4)}`;
+    const pointsData = await makeNWSRequest<PointsResponse>(pointsUrl);
+
+    if (!pointsData) {
+      return {
+        content: [
+          {
+            type: "text",
+            text: `Failed to retrieve grid point data for coordinates: ${latitude}, ${longitude}. This location may not be supported by the NWS API (only US locations are supported).`,
+          },
+        ],
+      };
+    }
+
+    const forecastUrl = pointsData.properties?.forecast;
+    if (!forecastUrl) {
+      return {
+        content: [
+          {
+            type: "text",
+            text: "Failed to get forecast URL from grid point data",
+          },
+        ],
+      };
+    }
+
+    // Get forecast data
+    const forecastData = await makeNWSRequest<ForecastResponse>(forecastUrl);
+    if (!forecastData) {
+      return {
+        content: [
+          {
+            type: "text",
+            text: "Failed to retrieve forecast data",
+          },
+        ],
+      };
+    }
+
+    const periods = forecastData.properties?.periods || [];
+    if (periods.length === 0) {
+      return {
+        content: [
+          {
+            type: "text",
+            text: "No forecast periods available",
+          },
+        ],
+      };
+    }
+
+    // Format forecast periods
+    const formattedForecast = periods.map((period: ForecastPeriod) =>
+      [
+        `${period.name || "Unknown"}:`,
+        `Temperature: ${period.temperature || "Unknown"}°${period.temperatureUnit || "F"}`,
+        `Wind: ${period.windSpeed || "Unknown"} ${period.windDirection || ""}`,
+        `${period.shortForecast || "No forecast available"}`,
+        "---",
+      ].join("\n"),
+    );
+
+    const forecastText = `Forecast for ${latitude}, ${longitude}:\n\n${formattedForecast.join("\n")}`;
+
+    return {
+      content: [
+        {
+          type: "text",
+          text: forecastText,
+        },
+      ],
+    };
+  },
+);```
+
+### Running the server
+Finally, let's initialize and run the server:
+
+    ```typescript
+async function main() {
+  const transport = new StdioServerTransport();
+  await server.connect(transport);
+  console.error("Weather MCP Server running on stdio");
+}
+
+main().catch((error) => {
+  console.error("Fatal error in main():", error);
+  process.exit(1);
+});```
+
+Make sure to run npm run build to build your server! This is a very important step in getting your server to connect.
+
+Let's now test your server from an existing MCP host, GitHub Copilot in VS Code.
+
+## Testing your server with GitHub Copilot in VS Code
+
+   Enable Agent mode if not already enabled:
+   - File -> Preferences -> Settings -> search 'agent' and enable the feature
+   - If it doesn't work - Restart/Update VS Code
+
+    Activate MCP:
+    - File -> Preferences -> Settings -> MCP -> Enable
+
+    Add Weather MCP Server:
+    File -> Preferences -> Settings -> MCP -> Edit in settings.json
+
+    Add the following (if there are additional mcp servers, add only the relevant code blocks):
+    ```{
+      "mcp": {
+        "servers": {
+          "weather": {
+            "command": "node",
+            "args": [
+               "/ABSOLUTE/PATH/TO/PARENT/FOLDER/weather/build/index.js"
+            ],
+          }
+        }
+      }
+    }
+    ```
+
+   This tells GitHub Copilot:
+    1. There's an MCP server named "weather"
+    2. To launch it by running `node /ABSOLUTE/PATH/TO/PARENT/FOLDER/weather/build/index.js`
+
+## What's happening under the hood
+When you ask a question:
+
+1. The client sends your question to GitHub Copilot Agent
+2. The Agent mode analyzes the available tools and decides which one(s) to use
+3. The client executes the chosen tool(s) through the MCP server
+4. The results are sent back to GitHub Copilot Agent
+5. GitHub Copilot Agent Mode formulates a natural language response
+6. The response is displayed to you!
+
+## Troubleshooting
+    **Error: Failed to retrieve grid point data**
+
+    This usually means either:
+
+    1. The coordinates are outside the US
+    2. The NWS API is having issues
+    3. You're being rate limited
+
+    Fix:
+
+    * Verify you're using US coordinates
+    * Add a small delay between requests
+    * Check the NWS API status page
+
+    **Error: No active alerts for \[STATE]**
+
+    This isn't an error - it just means there are no current weather alerts for that state. Try a different state or check during severe weather.
+
+## Next steps
+
+    Learn how to build your own MCP client that can connect to your server - https://modelcontextprotocol.io/quickstart/client
+    
+## Task 5 - Create MCP Server with LLMs (https://modelcontextprotocol.io/tutorials/building-mcp-with-llms)
+   - Enter the readme file in - https://github.com/modelcontextprotocol/typescript-sdk, and copy the raw file
+   - Create a new file under .github/prompts (in root) folder named- llm-mcp.prompt.md
+   - Copy the raw readme content
+   - Open GitHub Copilot Agent Mode, add context - prompts -> llm-mcp.prompt.md
+
+   - Ask GitHub Copilot Agent Mode to build your MCP Server. An example prompt:
+      ```Build an MCP server that:
+      - Connects to my company's PostgreSQL database
+      - Exposes table schemas as resources
+      - Provides tools for running read-only SQL queries
+      - Includes prompts for common data analysis tasks
+      ```
