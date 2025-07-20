@@ -1,4 +1,3 @@
-"use client";
 import {
   Card,
   CardDescription,
@@ -34,8 +33,10 @@ const ErrorPageFixing = () => {
       console.error("Failed to create player");
     } else {
       console.log("Player created successfully");
-      // Redirect to players-info page after successful creation
-      router.push('/players-info');
+      // Reset form after successful creation
+      setPlayerName("");
+      setPlayerPosition("");
+      setPlayerTeam("");
     }
   };
 

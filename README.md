@@ -1,748 +1,614 @@
-This is a [Next.js](https://nextjs.org) 14 project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# GitHub Copilot Workshop - NBA Sports Application
 
-❗**Note**: No mastery of JavaScript or Next.js is needed, AI will generate most of the code for you in this exercise.
-Even if you are not very familiar, it’s a great opportunity to leverage AI to quickly learn a new popular framework.
+Welcome to the comprehensive GitHub Copilot Workshop! This hands-on workshop will teach you to leverage AI-powered development through a real NBA sports application built with Next.js 14.
 
+❗**Note**: No mastery of JavaScript or Next.js is needed - AI will generate most of the code for you in this exercise. Even if you are not very familiar, it's a great opportunity to leverage AI to quickly learn a popular framework.
 
-# Pre-requisites
-1. An active Github Copilot license (one of the paid tiers, not the free version).
-2. Install and Update Github Copilot & Github Copilot Chat extensions in your IDE.
-3. Login to GitHub Copilot and make sure you get both code completions in the editor and chat interactions working.
-4. Install [Node.js](https://nodejs.org/en/download) & npm, if not already installed. To verify run ```node -v``` and ```npm -v``` commands.
+## 🎯 Workshop Objectives
 
-## Getting Started
+By the end of this workshop, you'll master:
+- **Core Copilot Features**: Chat interactions, completions, and role prompting
+- **Advanced Workflows**: Agent mode, Vision capabilities, and code optimization
+- **Specialized Integration**: MCP servers and automated workflows
+- **Best Practices**: Error handling, testing, and documentation with AI assistance
 
-First, run the development server:
+## 📋 Prerequisites
+
+### Required Software
+1. **GitHub Copilot License**: Active GitHub Copilot license (paid tier, not the free version)
+2. **IDE Setup**: Install and update GitHub Copilot & GitHub Copilot Chat extensions in your IDE
+3. **Authentication**: Login to GitHub Copilot and verify both code completions and chat work
+4. **Runtime**: Install [Node.js](https://nodejs.org/en/download) & npm. Verify with:
+   ```bash
+   node -v
+   npm -v
+   ```
+
+### Optional for Advanced Features
+- **Docker** (for MCP server tasks)
+- **GitHub Personal Access Token** (for MCP integration)
+
+## 🚀 Quick Start
+
+This section provides a quick overview. For detailed setup, see Task 0.
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd GitHubCopilotWorkshop-master
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Start the development server**
+   ```bash
+   npm run dev
+   ```
+
+4. **Open the application**
+   Navigate to [http://localhost:3000](http://localhost:3000) in your browser
+
+## 🏀 Application Overview
+
+**GitHub Copilot NBA Companion** - Your dedicated NBA companion! This app brings you:
+- 📊 **Live NBA Results**: Real-time game scores and statistics
+- 🎯 **Player Information**: Comprehensive player stats and profiles  
+- 🏟️ **Stadium Information**: NBA venues and facility details
+- ⚡ **Performance Optimization**: Examples for code optimization exercises
+- 🔧 **Error Handling**: Debugging and error resolution practice
+
+## 🛠️ Technology Stack
+
+- **Framework**: Next.js 14 with App Router
+- **Language**: TypeScript for type safety
+- **Styling**: Tailwind CSS with shadcn/ui components
+- **Testing**: Jest and React Testing Library
+- **State Management**: React Query (TanStack Query)
+- **API**: Next.js API Routes
+
+## 📁 Project Structure
+
+```
+├── src/
+│   ├── app/                    # Next.js 14 App Router
+│   │   ├── (dashboard)/        # Dashboard layout group
+│   │   │   ├── nba-scores/     # NBA game results
+│   │   │   ├── stadiums/       # Stadium information
+│   │   │   ├── optimization/   # Performance examples
+│   │   │   └── errors/         # Error handling examples
+│   │   └── api/                # API routes
+│   ├── components/             # Reusable UI components
+│   │   └── ui/                 # shadcn/ui components
+│   ├── lib/                    # Utility functions and data
+│   └── hooks/                  # Custom React hooks
+├── __tests__/                  # Test files
+├── .github/                    # GitHub configuration
+│   ├── copilot-instructions.md # Custom Copilot instructions
+│   ├── chatmodes/              # Custom chat modes
+│   └── prompts/                # Reusable prompt templates
+└── image/                      # Workshop assets and screenshots
+```
+
+## 🔧 Development Scripts
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run dev        # Start development server
+npm run build      # Build for production
+npm run start      # Start production server
+npm run lint       # Run ESLint
+npm run test       # Run Jest tests
+npm run test:watch # Run tests in watch mode
 ```
-# App Description
-
-Introducing GitHub Copilot, your dedicated NBA companion! GC brings you live NBA results and a unique feature: concise summaries of press conferences and post-game insights. Stay updated with key takeaways, player quotes, and team strategies, all in one place.
-
-With real-time updates and customizable notifications, GC is perfect for fans who want the latest NBA action and insider perspectives on each game’s impact and team dynamics.
-
-# Instructions
-
-## Task 0 - Choose Your AI Model for GitHub Copilot Chat
-1. In GitHub Copilot Chat -> Model Selector drop-down
-2. Select **Claude 3.5 Sonnet**
-3. ![Alt text](image/chat-model-selection.png)
-
-## Task 1 - Copilot Sport Application with GitHub Copilot
-
-1. **Imagine you are a new developer who just joined the team. You need to explore the project and understand its main components**
-
-   - Open the github.com platform and access your repository
-   - Click on the GitHub Copilot icon to open a chat
-   - Explore the app by asking a questions like:
-      - Can you tell me about this repository? 
-      - What framework is this repository using? 
-      - Where are the API routes handled?
-      - Which API routes are included in this repository?
-      - Where are the main UI components?
-      - What packages does the app use?
 
 ---
 
-2.  **Clone the repository to your local environment and run the application**   
-    - Clone the repository
-    - Open the repository in your IDE.
-    - Open the terminal -> View -> Terminal.
-    - Install the npm packages - in the root app folder run ```npm install``` in the terminal to install all necessary packages
-    - Start the development server by running ```npm run dev ```
-    - Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
+# 📖 Workshop Instructions
 
----
+## Task 0 - Setup & Model Selection
 
-3. **Role Prompting:**
-   
-   GitHub Copilot Chat role prompting is a feature that allows developers to define a specific role for Copilot, guiding it to provide more relevant and context-aware assistance. By setting a role prompt, you outline your development goals, project context, and specific tasks, so Copilot tailors its suggestions, code snippets, and guidance to better match your needs. This makes Copilot’s responses more effective, particularly in complex projects or when working with specialized tools or frameworks.
-   - Open GitHub Copilot Chat 
-   - Prompt: 
+### Environment Setup
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd <project-folder>
    ```
-   You are a developer working on a project using Next.js 14. You should be familiar with modern React practices, Next.js’s routing and app directory structure, API routes, and state management. Your tasks involve building efficient, scalable, and user-friendly applications with a focus on performance and responsiveness.
-    Responsibilities:
-    - UI Components: Build reusable, accessible, and responsive UI components using the latest Next.js conventions and best practices.
-    - API Integration: Set up API routes, handle data fetching with SWR or other libraries, and optimize for performance.
-    - Optimized Routing: Implement dynamic and nested routing, leveraging Next.js 14 features for route groups, layouts, and parallel routes.
-    - Performance Optimization: Use Next.js optimizations, such as lazy loading and server-side rendering, to ensure fast loading and seamless user experiences.
-    - Debugging & Testing: Use GitHub Copilot to generate code suggestions, debug issues, and write tests. Familiarity with testing libraries like Jest and React Testing Library is expected.
-    
-    Goals with GitHub Copilot Chat:
 
-    - Code Assistance: Use Copilot to suggest improvements, refactor code, and speed up repetitive tasks.
-    - Documentation: Generate documentation for components and API routes to ensure maintainability.
-    - Error Resolution: Ask Copilot for troubleshooting advice or assistance with specific Next.js 14 features or configurations.
-    - Optimization Suggestions: Seek suggestions for optimizing components, reducing bundle size, and improving server and client performance.
-    ```
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
----
+3. **Start the development server**
+   ```bash
+   npm run dev
+   ```
 
-4. **Explore NextJS technology with GitHub Copilot participants**
-  
-   ❗**Note**: Web search tool works best with GPT-4o - please switch the model
-   
-   - GitHub Copilot provides the ability (using @github participant) to search within your repository or across the web using Bing search integration. Feel free to ask additional questions to deepen your understanding of Next.js 14 technology.
-   - Open GitHub Copilot Chat
-   - Manually write the following prompts, one by one (do not copy-paste): 
-      - ```@github How do I create an API route in Next.js 14?```
-      - ```@github What are Server Actions in Next.js 14?```
-      - ```@github How does the routing system work in Next.js 14?```
-      - ```@github How to create a ui component in Next.js 14?```  
-   > In VS Code you can specify @github #web to search the internet with bing.
-   
-   You can tell that Copilot chat used bing search if you see bing as search resource:
+4. **Open the application**
+   Navigate to [http://localhost:3000](http://localhost:3000) in your browser
 
-   ![image](image/copilot-bing-search.png)
+### Choose Your AI Model for GitHub Copilot Chat
 
-   > Troubleshoot: Web search tool works best with GPT-4o - please switch the model. If for some reason you still can't see Bing used in the references, try to prompt it with "@github search the web, how do I..."
----
+Select the appropriate AI model based on your task:
 
-5. **Custom instructions** 
-   
-❗**NOTE**: Supported Only in VS Code and Visual Studio❗
-   
-   You can enhance Copilot's chat responses by providing it with contextual details about your team's workflow, tools, or project specifics. Instead of manually including this context in every chat query, you can create a custom instructions file that automatically incorporates this information **with every chat request**.
-   - In the root of your repository, create a file named ```.github/copilot-instructions.md```
-     Create the .github directory if it does not already exist.
-   - Add natural language instructions to the file, in Markdown format.
-     Whitespace between instructions is ignored, so the instructions can be written as a single paragraph, each on a new line, or separated by blank lines for legibility
-   - Instructions: 
-     - ```For API routes, use Next.js 14's enhanced API route capabilities. Aim for suggestions that optimize data fetching from our backend services, like fetching game data and user statistics, while keeping it secure and performant.```
-     - ```Always include comments with code suggestions.```
-     - ```Incorporate error handling in all suggestions, with clear messaging for potential issues and recovery steps to ensure a robust and user-friendly application```
-   - In the next task, you'll see how these instructions are used as reference
----
+- **GPT-4.1**: Best for general development, UI components, basic API routes, code documentation, and bug fixes
+- **Claude 4 Sonnet**: Excellent for code optimization, complex problem-solving, agent mode tasks, and performance improvements
 
-6. **Add Comments to Code:** 
-   
-   One of the common frustrations for developers is documenting their code properly, but don’t worry—Copilot is here to help!:
-   - Open /src/app/api/nba-results/route.ts
-   - Use GitHub Copilot Chat to gain insights into the code. Simply select the code and choose the /explain option for a detailed breakdown.
-   - Select the entire function, then press cmd+i on MacOS or ctrl+i on Windows. Next, type /doc.
-    > GitHub Copilot will generate a documentation-style function declaration.
-   - You can also use Copilot Chat to generate additional documentation. Open GitHub Copilot Chat and enter a prompt: ```Add comments to my code```
-   - Add /doc and comments to other api routes
-   > When adding comments to the code, ensure that GitHub Copilot Chat applies custom instructions with each request.
+**How to Switch Models**:
+1. Open GitHub Copilot Chat
+2. Look for the model selector dropdown (usually shows current model)
+3. Click to see available options and select your preferred model
 
-   ![Alt text](image/custom-instructions.png)
-
----
-  
-7. **Fix your code with GitHub Copilot**
-   
-   GitHub Copilot assists in fixing code errors by analyzing context to suggest corrections, improving code accuracy and reducing debugging time. It quickly identifies and offers solutions for syntax errors, logic issues, and common mistakes.
-   - In the website's UI, navigate to the errors page at http://localhost:3000/errors - this is actually an 'Add NBA player' page, although, when trying to create a new player, there's an error
-   - Fill in the form and click on 'Create player' button - you will see an error (404) displayed both in the the IDE console and in the website UI (browser console).
-   - Ask Copilot Chat to /explain the error "/explain POST /api/players 404", with the context of /errors/page.tsx
-   - Ask Copilot Chat to fix the error with the right context (ask to create the api, while providing the page and players data file - /src/lib/player-info.ts)
-   - You should now be able to add players (look at /src/lib/player-info.ts to see the new added player).
-   - Once you've fixed the error, enhance the form component's style by selecting the form (in /errors/page.tsx), pressing Ctrl + I on Windows or Cmd + I on MacOS, and asking Copilot to improve the style using TailwindCSS.
-   - See the results.
+![Model Selection](image/chat-model-selection.png)
 
 ---
 
-8. **Optimize Code With GitHub Copilot**
-    
-    GitHub Copilot Chat can help you optimize code (refactor behavior without changing functionallity). In the following task, you will optimize 2 inefficient code logics, using different Chat models.
-    
-    - Optimize with GPT 4o:
-      - Click on 'Optimization' page in the web app. left menu 
-      - Wait until the page finishes loading (might take ~10s).
-      - Your goal is to optimize the code using the GPT 4o model
-      - Find the API route in the code (you can use #codebase to help locate it).
-      - **Choose chat model GPT-4o**
-      
-      ![Alt text](image/chat-model-selection.png)
-      - Ask Copilot Chat to "optimize this code" while the relevant route.ts is in the chat context.
-      - Make the necessary adjustments, then reload the page and make sure it loads fast.
+## Task 1 - Core Copilot Basics
 
-   - Optimize with o3 model:
-      - Click on 'Optimization-o1' page in the web app. left menu 
-      - Wait until the page finishes loading
-      - Your goal is to optimize the code using the o3 (preview) model
-      - Find the API route in the code (you can use #codebase to help locate it).
-      - Select the countTokens function code and open inline chat (press ctrl+i (windows) / cmd + i (macos)) and **switch to o3 (preview) model**
-      - Type /optimize
-      - Make the necessary adjustments, then try accessing the page again
-      
-      > Did you know? 
-      **o3 (preview)** model is focused on advanced reasoning and solving complex problems, in particular in math and science. It responds more slowly than the GPT-4o model.
-      **o3-mini** model is the next generation of reasoning models, following from o1 and o1-mini. The o3-mini model outperforms o1 on coding benchmarks with response times that are comparable to o1-mini, providing improved quality at nearly the same latency. It is best suited for code generation and small context operations
+### 1.1 Repository Exploration 
+
+**Imagine you are a new developer who just joined the team. You need to explore the project and understand its main components**
+
+- Open the github.com platform and access your repository (you can also use @workspace (#project in VS/Jetbrains) or #codebase in your IDE to query the whole project)
+- Click on the GitHub Copilot icon to open a chat
+- Explore the app by asking questions like:
+  - Can you tell me about this repository? 
+  - What framework is this repository using? 
+  - Where are the API routes handled?
+  - Which API routes are included in this repository?
+  - Where are the main UI components?
+  - What packages does the app use?
+
+### 1.2 Explore Next.js Technology with @github
+
+Use GitHub Copilot's web search capabilities to learn about Next.js 14 features:
+
+**Instructions:**
+1. Open GitHub Copilot Chat
+2. Ask these prompts one by one (don't copy-paste):
+   - `@github How do I create an API route in Next.js 14?`
+   - `@github What are Server Actions in Next.js 14?`
+   - `@github How does the routing system work in Next.js 14?`
+   - `@github How to create a ui component in Next.js 14?`
+
+You can tell that Copilot chat used bing search if you see bing as search resource:
+
+![Bing Search](image/copilot-bing-search.png)
+
+> Troubleshoot: If you don't see Bing in references, try prompting with "@github search the web, how do I..."
+
+### 1.3 Role Prompting and Custom Instructions
+
+GitHub Copilot Chat role prompting allows you to define a specific role for Copilot, guiding it to provide more relevant and context-aware assistance. Additionally, you can enhance Copilot's responses by setting up custom instructions.
+
+**Setup Instructions:**
+1. Copy and paste the following combined prompt into the `.github/copilot-instructions.md` file:
+
+```
+You are a Next.js 14 developer focused on building modern, scalable web applications. Your expertise includes:
+
+- **Framework Mastery**: Deep knowledge of Next.js 14 App Router, routing conventions, layouts, and server/client components
+- **TypeScript Excellence**: Write type-safe code with proper interfaces, generics, and error handling
+- **Modern Styling**: Use Tailwind CSS with shadcn/ui components for consistent, responsive design patterns
+- **API Development**: Create secure, performant Next.js API routes with proper validation and error handling
+- **Performance Focus**: Implement lazy loading, code splitting, caching strategies, and Core Web Vitals optimization
+- **Testing & Quality**: Generate comprehensive unit tests, integration tests, and follow testing best practices
+- **Accessibility**: Ensure WCAG compliance, semantic HTML, and inclusive design patterns
+
+Code Generation Guidelines:
+- Always include comprehensive comments explaining complex logic
+- Implement robust error handling with user-friendly error messages
+- Follow React and Next.js best practices for hooks, state management, and component architecture
+- Optimize for performance with proper memoization, suspense boundaries, and server-side rendering
+- Include loading states, error boundaries, and fallback components
+- Write reusable, composable components that follow single responsibility principle
+- Ensure responsive design that works across all device sizes
+
+When providing solutions:
+- Explain the reasoning behind architectural decisions
+- Suggest performance improvements and potential optimizations
+- Include relevant documentation and helpful comments
+- Provide examples of proper error handling and edge cases
+- Recommend best practices for maintainability and scalability
+```
+
+2. Test the custom instructions by asking Copilot any coding question and notice how it applies the custom instructions automatically
+3. The responses should include TypeScript, error handling, and Next.js 14 patterns
+
+### 1.4 GitHub Copilot Code Reviews
+
+GitHub Copilot can review your code and provide feedback with suggested changes.
+
+**Instructions:**
+1. Open `/src/app/api/nba-results/route.ts`
+2. Select all the file code
+3. Right-click and choose 'Copilot -> Review and Comment'
+4. Review Copilot's feedback and apply suggested improvements
+5. Repeat for other API routes
+
+![Review and Comment](image/review-and-comment-comments.png)
+
+### 1.5 Add Comments to Code
+
+One of the common frustrations for developers is documenting their code properly, but Copilot is here to help!
+
+**Instructions:**
+1. Open `/src/app/api/nba-results/route.ts`
+2. Use GitHub Copilot Chat to gain insights:
+   - Select the code and choose the `/explain` option for a detailed breakdown
+3. Generate documentation:
+   - Select the entire function, then press `Cmd+I` (macOS) or `Ctrl+I` (Windows)
+   - Type `/doc` - GitHub Copilot will generate documentation-style comments
+4. Add `/doc` and comments to other API routes
+
+**Notice**: When adding comments, ensure GitHub Copilot Chat applies custom instructions with each request.
+
+### 1.6 Generate Unit Tests
+
+**Instructions:**
+1. Open `/src/util/calculator.js` - the file contains simple calculator util functions
+2. Open `/src/util/calculator.test.js` (this file should exist but be mostly empty)
+3. Select all the code in `calculator.js` and press `Cmd+I` (macOS) or `Ctrl+I` (Windows)
+4. Type `/tests` - GitHub Copilot will generate unit tests for the selected functions
+5. Copy the generated tests into `calculator.test.js`
+6. Run tests: `npm test src/util/calculator.test.js`
+7. If tests fail, copy the terminal error message, select the failing test code, press `Ctrl+I`/`Cmd+I`, and type `/fix` followed by pasting the error message
+
+**Alternative approach using Chat:**
+- Open GitHub Copilot Chat
+- Attach the `calculator.js` file to the chat
+- Ask: "Generate Jest unit tests for all functions in this calculator file"
+- Copy the generated tests to `calculator.test.js`
+
+### 1.7 Fix Your Code with GitHub Copilot
+
+GitHub Copilot assists in fixing code errors by analyzing context to suggest corrections.
+
+**Instructions:**
+1. Navigate to the errors page at http://localhost:3000/errors (this is an 'Add NBA player' page)
+2. Fill in the form and click 'Create player' button - you'll see an error (404)
+3. Ask Copilot Chat to `/explain` the error "/explain POST /api/players 404" with context of `/errors/page.tsx`
+4. Ask Copilot Chat to fix the error (ask to create the API, providing the page and players data file - `/src/lib/player-info.ts`)
+5. You should now be able to add players
+6. Enhance the form styling by selecting the form, pressing `Ctrl+I`/`Cmd+I`, and asking Copilot to improve the style using TailwindCSS
+
+### 1.8 Optimize Code With GitHub Copilot
+
+GitHub Copilot Chat can help you optimize code (refactor behavior without changing functionality).
+
+**Instructions:**
+1. Click on 'Optimization' page in the web app left menu 
+2. Wait until the page finishes loading (might take ~10s)
+3. Find the API route in the code (use #codebase to help locate it)
+4. **Choose chat model Claude 4 Sonnet**
+5. Ask Copilot Chat to "optimize this code using agent mode" while the relevant route.ts is in the chat context
+6. Make necessary adjustments, then reload the page and ensure it loads fast
+
+### 1.9 Create Player Info Feature
+
+Create a comprehensive player information display using file attachments.
+
+**Instructions:**
+1. Add these files to Chat context (attach files or drag&drop):
+   - `/src/app/api/player-info/route.ts` - API to fetch players data (already exists)
+   - `/src/lib/player-info.ts` - Players data
+   - You'll need to create: `/src/app/(dashboard)/players-info/page.tsx` - Players info page
+
+2. Ask Copilot using either edit or agent mode: 
+   ```
+   Using the existing player-info API route, create a React component that displays a list of player information showing only the id, name, team, weight, height, and position properties. Ensure each player is displayed in a separate card. Use TailwindCSS and shadcn in your prompt to style the output.
+   ```
+
+3. Test your API route: GET request to http://localhost:3000/api/player-info
+4. Open http://localhost:3000/players-info and verify results
 
 ---
 
-9. **GitHub Copilot Code Reviews**
-   
-   ❗**NOTE**: Supported Only in VS Code❗
+## Task 2 - Intermediate Copilot Features
 
-   GitHub Copilot can review your code and provide feedback. Where possible, Copilot's feedback includes suggested changes which you can apply with a couple of clicks.
-   - Open the /app/api/nba-results/route.ts file 
-   - Select all this file code, Right-click mouse on the code, Choose menu 'Copilot -> Review and Comment'
-   - GitHub Copilot will suggest code improvements, which you can choose to accept, reject, or skip to move on to the next suggestion. You'll also find the complete suggestions in the comments section.
+### 2.1 Advanced Chat Features: Custom Chat Modes
 
-   ![Alt text](image/review-and-comment-comments.png)
+GitHub Copilot supports custom chat modes that create specialized AI assistants for specific tasks.
+
+**Instructions:**
+1. **Explore existing modes**:
+   - Navigate to `.github/chatmodes/` directory 
+   - Open `plan.chatmode.md` to see the configuration
+   - In Copilot Chat, try using custom modes from the model dropdown
+
+2. **Create Your Own Custom Mode**:
+   - Create a new file: `.github/chatmodes/reviewer.chatmode.md`
+   - Add the following content for a code review mode:
+
+```markdown
+# Code Reviewer
+
+You are a thorough code reviewer focused on best practices and maintainability.
+
+## Instructions
+
+- Always use single quotes in TypeScript
+- Check for proper error handling
+- Ensure consistent code formatting
+- Verify accessibility standards
+- Look for performance optimizations
+- Suggest improvements for readability
+```
+
+   - Use the new mode from the mode picker
+
+**Why Custom Modes Are Powerful**:
+- Domain-specific expertise and context
+- Standardized workflows and best practices
+- Reduced need for detailed prompting
+- Team consistency in AI interactions
+
+### 2.2 Advanced Prompt Management: Prompt Files
+
+Prompt files allow you to create reusable, shareable prompts for consistent development practices.
+
+**Instructions:**
+1. **Explore existing prompt files**:
+   - Navigate to `.github/prompts/` directory
+   - Open Copilot Chat and add `testing-strategy.prompt.md` as context to help create comprehensive test suites
+
+2. **Create a Custom Prompt File**:
+   - Create a new prompt file: `.github/prompts/api-security.prompt.md`
+   - Add the following content:
+   ```markdown
+   Secure REST API review:
+   - Ensure all endpoints are protected by authentication and authorization
+   - Validate all user inputs and sanitize data
+   - Implement rate limiting and throttling
+   - Implement logging and monitoring for security events
+   ```
+   - Test the prompt by adding it as context in Copilot Chat
+
+**Benefits of Prompt Files**:
+- Team-wide consistency in AI interactions
+- Reusable knowledge and context
+- Better onboarding for new team members
+- Standardized coding practices and patterns
+
+### 2.3 Advanced Editing: Chat Rollback and Prompt Editing
+
+The rollback feature allows you to edit previous prompts and reapply changes with different models or instructions.
+
+**Instructions:**
+1. **Practice Rollback Workflow**:
+   - Ask Copilot Chat to create a simple NBA player card component
+   - After receiving the response, click on your original prompt in the chat history
+   - Edit the prompt to request additional features (e.g., "also add player statistics and hover effects")
+   - Switch to a different model (e.g., from GPT-4.1 to Claude 4 Sonnet)
+   - Apply the changes and observe how Copilot reverts and reapplies with the new context
+
+2. **Advanced Rollback Scenarios**:
+   - Test different AI models on the same prompt
+   - Refine prompts iteratively without losing context
+   - Compare code generation approaches
+   - Fix issues by adjusting original instructions
+
+**Why Rollback Is Powerful**:
+- Non-linear development workflow
+- Easy experimentation with different approaches
+- Efficient prompt refinement
+- Better model comparison and selection
 
 ---
 
-10. **Generate Unit Tests using GitHub Copilot**
-   Test-driven development and unit test creation aren't always prioritized by development teams. However, GitHub Copilot can significantly reduce the effort required for these tasks by automatically generating unit tests.
-   - Open the /util/calculator.js file located in the /src directory.
-   - The file contains simple calculator util functions
-   - Open the /util/calculator.test.js file and add unit tests to calculator.js by using Jest and prompt engineering techniques, such as the one-shot method. Provide a sample unit test structure example in Copilot Chat to guide the model, then proceed to generate the tests.
-   - You can generate tests also by typing /tests participant in GitHub Copilot Chat
-   - Run the tests using the command ```npm test src/util/calculator.test.js```
-   - Fix one failing test by copying the terminal error into Copilot Inline Chat (press ctrl+i (windows) / cmd + i (macos)), highlighting the failing test code and using the /fix command
+## Task 3 - Copilot Agent Mode
+
+### 3.1 Add Stadiums Feature using GitHub Copilot Agents
+
+GitHub Copilot's agent mode can iterate on its own code, recognize errors, and fix them automatically.
+
+**Instructions:**
+1. Open GitHub Copilot Chat, choose agent mode
+2. From the dropdown menu select Agent mode and Claude 4 Sonnet model
+3. Include a prompt to generate a new Stadium feature:
+
+```
+Let's enhance this application by adding an NBA Stadiums page.
+1. First, create a JSON file containing sample stadium data.
+2. Then, set up a Next.js API route to serve the stadium data from the JSON file.
+3. Build a React component that displays the stadium information as cards.
+4. Add a navigation link to this new component in the main navigation page.
+5. Use Tailwind CSS and ShadCN components to style the UI.
+```
+
+**💡 Agent Mode Prompt Guidelines:**
+- **Be specific**: Include exact file paths (`/api/stadiums/route.ts`, `/src/app/(dashboard)/stadiums/page.tsx`)
+- **Break into steps**: Number your requirements (1, 2, 3...) - agent mode works best with sequential tasks
+- **Mention technology**: Specify "Next.js 14", "TypeScript", "Tailwind CSS", "shadcn/ui"
+- **Request iteration**: End with "Please implement this step by step and let me review each step"
+- **Include context**: Reference existing project structure and data files
+
+4. Review the output and monitor live changes in your codebase
+5. Accept or reject each step suggested by the agent
+6. Open the app to verify the Stadiums navigation tab and functionality
+
+### 3.2 Add Login Screen using GitHub Copilot Vision
+
+You can attach images and work with them directly in Copilot Chat.
+
+**Instructions:**
+1. Open Copilot Chat and select Claude 4 Sonnet model
+2. Navigate to the image folder and attach `login.png` to your chat
+3. Ask Copilot using agent mode: 
+   ```
+   Write a React component code based on login.png image
+   ```
+4. Integrate the component into your application
 
 ---
 
-11. **Lets Create a Player info feature, Under lib folder there is a a file called player-info.ts with nba player stats, you need to build an api route and react component based on player stats using file attach option in the chat, the route already exists under /src/app/api/player-info/route.ts**
+## Task 4 - MCP Servers (Bonus)
 
-❗**NOTE**: Use Copilot Edits in VS Code and Visual Studio, in Jetbrains IDEs use Copilot Chat instead❗
-   
-   - In GitHub Copilot Chat, use @github chat participant to learn how to handle routes in a Next.js 14 application.
-   - Add the 3 relevant files to the Chat context (attach files or drag&drop):       
-      1. /src/app/api/player-info/route.ts  - api to fetch players data
-      2. /src/lib/player-info.ts - players data
-      3. /src/app/(dashboard)/player-info/page.tsx - players info page
-
-   - Now ask Copilot Edits (or Copilot Chat in JetBrains IDEs) to: 
-   
-      Create a route based on the player-info file that fetches only the id, name, team, weight, height, and position properties. Generate a component that displays a list of player information with all these fields, Ensure each player is displayed in a separate card. Use Tailwindcss and shadcn in your prompt to style the output
-
-   - You can test your api route with GET request: http://localhost:3000/api/player-info
-   - Open the http://localhost:3000/players-info and see the results, refactor the code if needed. 
-  
-## Task 2 - Copilot Agent Mode
-
-❗**NOTE**: Supported Only in VS Code❗
-
-1. **Add Stadiums feature using GitHub Copilot Agents** 
-    GitHub Copilot’s new agent mode is capable of iterating on its own code, recognizing errors, and fixing them automatically. It can suggest terminal commands and ask you to execute them. It also analyzes run-time errors with self-healing capabilities.
-    -  Open GitHub Copilot Chat, select Copilot Edits Tab, from the drop down menu select Agent mode and select Claude 3.5 Sonnet model.
-    -  Include a prompt to generate a new Stadium feature—clearly specify the exact instructions for your desired action. For example:
-       
-      ```
-      Let's enhance this application by adding an NBA Stadiums page.
-       1. First, create a JSON file containing sample stadium data.
-       2. Then, set up a Next.js API route to serve the stadium data from the JSON file.
-       3. Build a React component that displays the stadium information as cards.
-       4. Add a navigation link to this new component in the main navigation page.
-       5. Use Tailwind CSS and ShadCN components to style the UI.
-     ```
-     - Review the output and monitor live changes in your codebase. The agent will analyze your file structure, determine appropriate locations for adding files, and handle the additions accordingly. Be sure to accept or reject each step suggested by the agent.
-     - Open the app to verify that the Stadiums navigation tab, the REST API endpoint, and the corresponding React component have been successfully added.
-
-2.  **Add a login screen using Github Copilot Vision**
-     You can now attach images and work with them directly in Copilot Chat. Share screenshots of errors and Copilot will interpret the image and resolve the issue. Or share mockups of new designs, and Vision will help you bring them to life.
-     - Open the Copilot Chat and select Gpt-4o model 
-     - Navigate to the image folder located at the root of your project, select the login.png file, and attach it to your chat.
-     - Now, create a React login component based on the attached image. For example: ```Write a React component code based on login.png image```
-     - Optionally, you can activate agent mode to build the complete flow.
-     - Integrate the component into your application.
-
-3.  **Bonus - change UI using Github Copilot Vision**
-     - Open the Copilot Chat and select Gpt-4o model 
-     - Get some common UI you like and ask your agent to make your application as similar as possible.
-  
-## Task 3 - MCP Servers (Bonus)
-
-❗**NOTE**: Supported Only in VS Code IDE❗
-
-# Pre-requisites
+### Prerequisites
 - Docker Running
 - GitHub PAT (Personal Access Token)
 
-1. **Enable Agent mode if not already enabled:**
-   - File - > Preferences -> Settings -> search 'agent' and enable the feature
-   - If it doesn't work - Restart/Update VS Code
+### 4.1 Add GitHub MCP Server
 
-2.  **Activate MCP**
-     - File -> Preferences -> Settings -> search 'MCP' and enable the feature
-  
-3.  **Add GitHub MCP Server**
-     - File -> Preferences -> Settings -> search 'MCP' and click 'edit in settings.json'
-       > Note: You can also switch to agent mode -> choose the tools icon -> Add More Tools... -> Add MCP Server... -> continue to choose the right option for the desired MCP server
+1. **Switch to Agent Mode**:
+   - Open GitHub Copilot Chat and select Agent mode
 
-4.  **Add the following (if there are additional mcp servers, add only the relevant code blocks)**
-```{
-  "mcp": {
-    "inputs": [
-      {
-        "type": "promptString",
-        "id": "github_token",
-        "description": "GitHub Personal Access Token",
-        "password": true
-      }
-    ],
-    "servers": {
-      "github": {
-        "command": "docker",
-        "args": [
-          "run",
-          "-i",
-          "--rm",
-          "-e",
-          "GITHUB_PERSONAL_ACCESS_TOKEN",
-          "ghcr.io/github/github-mcp-server"
-        ],
-        "env": {
-          "GITHUB_PERSONAL_ACCESS_TOKEN": "${input:github_token}"
-        }
-      }
-    }
-  }
-}
-```
+2. **Add MCP Server**:
+   - Click the tools icon in the agent mode interface
+   - Click "Add more tools"
+   - Choose "Add MCP server..."
+   - Select "Command (stdio)" as the connection type
+   - Enter a placeholder command (we'll edit it later): `echo "placeholder"`
+   - Give the MCP server a name or press Enter for default
+   - Choose "Global" (applies to all projects) or "Workspace" (current project only)
+   - Add the following configuration:
 
-5.  **Refresh the tools and enter the GitHub PAT**
-     - Go to the agent mode window -> click the server icon
-     - A field will appear asking for your GitHUB Personal Access Token -> Enter it
-  
-6.  **Use GitHub MCP tools**
-     - Prompt the agent! Here is an example prompt:
-     ```Create a new GitHub repository with the name - agent-demo, make sure it's private.
-        To this new repo, create a new branch which I would be the owner of, named - agent-branch.
-        Then push this project to the agent-branch and create a new pull request which I would be the owner of, in the new repository you just created. Call it - first PR. Main branch is the base.
-        ```
-> Note: You can review all GitHub MCP Server available tools here: https://github.com/github/github-mcp-server
+   **Option A: Remote OAuth**:
+   ```json
+   {
+     "servers": {
+       "github": {
+         "type": "http",
+         "url": "https://api.githubcopilot.com/mcp/"
+       }
+     }
+   }
+   ```
 
-## Task 4 - Build your own MCP Server (Bonus)
-In this tutorial, we'll build a simple MCP weather server.
-We'll start with a basic setup, and then progress to more complex use cases. 
+   **Option B: Local Docker with PAT**:
+   ```json
+   {
+     "mcp": {
+       "inputs": [
+         {
+           "type": "promptString",
+           "id": "github_token",
+           "description": "GitHub Personal Access Token",
+           "password": true
+         }
+       ],
+       "servers": {
+         "github": {
+           "command": "docker",
+           "args": [
+             "run",
+             "-i",
+             "--rm",
+             "-e",
+             "GITHUB_PERSONAL_ACCESS_TOKEN",
+             "ghcr.io/github/github-mcp-server"
+           ],
+           "env": {
+             "GITHUB_PERSONAL_ACCESS_TOKEN": "${input:github_token}"
+           }
+         }
+       }
+     }
+   }
+   ```
 
-### What we'll be building
-Many LLMs do not currently have the ability to fetch the forecast and severe weather alerts. Let's use MCP to solve that!
+3. **Use GitHub MCP tools**:
+   ```
+   Create a new GitHub repository with the name - agent-demo, make sure it's private.
+   To this new repo, create a new branch which I would be the owner of, named - agent-branch.
+   Then push this project to the agent-branch and create a new pull request which I would be the owner of, in the new repository you just created. Call it - first PR. Main branch is the base.
+   ```
 
-We'll build a server that exposes two tools: `get-alerts` and `get-forecast`. Then we'll connect the server to an MCP host (in this case, GitHub Copilot in VS Code): 
+> Note: Review all GitHub MCP Server available tools at: https://github.com/github/github-mcp-server
 
+---
 
-### Core MCP Concepts
+## Task 5 - Build Your Own MCP Server (Bonus) - New Project
 
-MCP servers can provide three main types of capabilities:
+Create a new project to build your own MCP server.
 
-1. **Resources**: File-like data that can be read by clients (like API responses or file contents)
-2. **Tools**: Functions that can be called by the LLM (with user approval)
-3. **Prompts**: Pre-written templates that help users accomplish specific tasks
+### 5.1 System Requirements
+- Latest version of Node.js installed
 
-This tutorial will primarily focus on tools.
-Let's get started with building our weather server! [You can find the complete code for what we'll be building here.](https://github.com/modelcontextprotocol/quickstart-resources/tree/main/weather-server-typescript)
+### 5.2 Set Up Environment
 
-### System requirements
- * Latest version of Node installed
-
-### Set up your environment
-
-First, let’s install Node.js and npm if you haven’t already. You can download them from nodejs.org. Verify your Node.js installation:
-```node --version
-npm --version
-```
-For this tutorial, you’ll need Node.js version 16 or higher.
-
-Now, let's create and set up our project:
-
-```bash MacOS/Linux
-# Create a new directory for our project
+**macOS/Linux:**
+```bash
 mkdir weather
 cd weather
-
-# Initialize a new npm project
 npm init -y
-
-# Install dependencies
 npm install @modelcontextprotocol/sdk zod
 npm install -D @types/node typescript
-
-# Create our files
 mkdir src
 touch src/index.ts
 ```
 
-```powershell Windows
-# Create a new directory for our project
+**Windows:**
+```powershell
 md weather
 cd weather
-
-# Initialize a new npm project
 npm init -y
-
-# Install dependencies
 npm install @modelcontextprotocol/sdk zod
 npm install -D @types/node typescript
-
-# Create our files
 md src
 new-item src\index.ts
 ```
-Update your package.json to add type: “module” and a build script:
-```{
-  "type": "module",
-  "bin": {
-    "weather": "./build/index.js"
-  },
-  "scripts": {
-    "build": "tsc && chmod 755 build/index.js"
-  },
-  "files": [
-    "build"
-  ],
-}
-```
-Create a tsconfig.json in the root of your project:
-```{
-  "compilerOptions": {
-    "target": "ES2022",
-    "module": "Node16",
-    "moduleResolution": "Node16",
-    "outDir": "./build",
-    "rootDir": "./src",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
-  },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules"]
-}
-```
 
-Now let's dive into building your server.
+### 5.3 Build Your Weather Server
 
-## Building your server
+Create a weather MCP server that provides weather alerts and forecasts using the National Weather Service API.
 
-### Importing packages and setting up the instance
+**Key Components:**
+1. Server setup with MCP SDK
+2. Helper functions for API requests
+3. Tool implementation for weather data
+4. Error handling and validation
 
-Add these to the top of your src/index.ts:
+**Test Your Server:**
+1. Build: `npm run build`
+2. Add to VS Code settings.json MCP configuration
+3. Test in Agent mode with weather queries
 
-```typescript
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
-import { z } from "zod";
+---
 
-const NWS_API_BASE = "https://api.weather.gov";
-const USER_AGENT = "weather-app/1.0";
+## 🎓 Learning Path
 
-// Create server instance
-const server = new McpServer({
-  name: "weather",
-  version: "1.0.0",
-  capabilities: {
-    resources: {},
-    tools: {},
-  },
-});
-```
+1. **Start with Task 0** - Set up your environment and model selection
+2. **Progress through Task 1 systematically** - Each sub-task builds on previous knowledge
+3. **Continue with Task 2** - Intermediate features and advanced chat capabilities
+4. **Experience Task 3** - Agent mode capabilities
+5. **Try Bonus Tasks 4-5** - For advanced workflows and integrations
 
-### Helper functions
+## 💡 Tips for Success
 
-Next, let's add our helper functions for querying and formatting the data from the National Weather Service API:
+- 🤖 **Experiment freely** - Try different prompts and approaches
+- 📝 **Read instructions carefully** - Each task builds on previous knowledge
+- 🔄 **Practice iteratively** - Use Copilot to refine and improve your code
+- 🗣️ **Ask Copilot questions** - It's your coding assistant and teacher
+- 🎯 **Focus on learning** - The goal is to understand Copilot's capabilities
 
-    ```typescript
-// Helper function for making NWS API requests
-async function makeNWSRequest<T>(url: string): Promise<T | null> {
-  const headers = {
-    "User-Agent": USER_AGENT,
-    Accept: "application/geo+json",
-  };
+## 🆘 Troubleshooting
 
-  try {
-    const response = await fetch(url, { headers });
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    return (await response.json()) as T;
-  } catch (error) {
-    console.error("Error making NWS request:", error);
-    return null;
-  }
-}
+**Common Issues:**
+- **Copilot not responding**: Check your authentication and license status
+- **API errors**: Verify your environment variables and API keys
+- **Build errors**: Run `npm install` to ensure all dependencies are installed
+- **Port conflicts**: Try using a different port with `npm run dev -- -p 3001`
 
-interface AlertFeature {
-  properties: {
-    event?: string;
-    areaDesc?: string;
-    severity?: string;
-    status?: string;
-    headline?: string;
-  };
-}
+**Getting Help:**
+- Use GitHub Copilot Chat to debug issues
+- Check the console for error messages
+- Refer to task-specific troubleshooting in each section
 
-// Format alert data
-function formatAlert(feature: AlertFeature): string {
-  const props = feature.properties;
-  return [
-    `Event: ${props.event || "Unknown"}`,
-    `Area: ${props.areaDesc || "Unknown"}`,
-    `Severity: ${props.severity || "Unknown"}`,
-    `Status: ${props.status || "Unknown"}`,
-    `Headline: ${props.headline || "No headline"}`,
-    "---",
-  ].join("\n");
-}
+## 🤝 Contributing
 
-interface ForecastPeriod {
-  name?: string;
-  temperature?: number;
-  temperatureUnit?: string;
-  windSpeed?: string;
-  windDirection?: string;
-  shortForecast?: string;
-}
+This workshop is designed for learning GitHub Copilot. Feel free to:
+- Experiment with the code
+- Try different Copilot approaches
+- Share your learning experiences
+- Suggest improvements to the workshop content
 
-interface AlertsResponse {
-  features: AlertFeature[];
-}
+## 📄 License
 
-interface PointsResponse {
-  properties: {
-    forecast?: string;
-  };
-}
+This project is for educational purposes as part of the GitHub Copilot workshop.
 
-interface ForecastResponse {
-  properties: {
-    periods: ForecastPeriod[];
-  };
-}```
+---
 
-### Implementing tool execution
-The tool execution handler is responsible for actually executing the logic of each tool. Let's add it:
-
-    ```typescript
-// Register weather tools
-server.tool(
-  "get-alerts",
-  "Get weather alerts for a state",
-  {
-    state: z.string().length(2).describe("Two-letter state code (e.g. CA, NY)"),
-  },
-  async ({ state }) => {
-    const stateCode = state.toUpperCase();
-    const alertsUrl = `${NWS_API_BASE}/alerts?area=${stateCode}`;
-    const alertsData = await makeNWSRequest<AlertsResponse>(alertsUrl);
-
-    if (!alertsData) {
-      return {
-        content: [
-          {
-            type: "text",
-            text: "Failed to retrieve alerts data",
-          },
-        ],
-      };
-    }
-
-    const features = alertsData.features || [];
-    if (features.length === 0) {
-      return {
-        content: [
-          {
-            type: "text",
-            text: `No active alerts for ${stateCode}`,
-          },
-        ],
-      };
-    }
-
-    const formattedAlerts = features.map(formatAlert);
-    const alertsText = `Active alerts for ${stateCode}:\n\n${formattedAlerts.join("\n")}`;
-
-    return {
-      content: [
-        {
-          type: "text",
-          text: alertsText,
-        },
-      ],
-    };
-  },
-);
-
-server.tool(
-  "get-forecast",
-  "Get weather forecast for a location",
-  {
-    latitude: z.number().min(-90).max(90).describe("Latitude of the location"),
-    longitude: z.number().min(-180).max(180).describe("Longitude of the location"),
-  },
-  async ({ latitude, longitude }) => {
-    // Get grid point data
-    const pointsUrl = `${NWS_API_BASE}/points/${latitude.toFixed(4)},${longitude.toFixed(4)}`;
-    const pointsData = await makeNWSRequest<PointsResponse>(pointsUrl);
-
-    if (!pointsData) {
-      return {
-        content: [
-          {
-            type: "text",
-            text: `Failed to retrieve grid point data for coordinates: ${latitude}, ${longitude}. This location may not be supported by the NWS API (only US locations are supported).`,
-          },
-        ],
-      };
-    }
-
-    const forecastUrl = pointsData.properties?.forecast;
-    if (!forecastUrl) {
-      return {
-        content: [
-          {
-            type: "text",
-            text: "Failed to get forecast URL from grid point data",
-          },
-        ],
-      };
-    }
-
-    // Get forecast data
-    const forecastData = await makeNWSRequest<ForecastResponse>(forecastUrl);
-    if (!forecastData) {
-      return {
-        content: [
-          {
-            type: "text",
-            text: "Failed to retrieve forecast data",
-          },
-        ],
-      };
-    }
-
-    const periods = forecastData.properties?.periods || [];
-    if (periods.length === 0) {
-      return {
-        content: [
-          {
-            type: "text",
-            text: "No forecast periods available",
-          },
-        ],
-      };
-    }
-
-    // Format forecast periods
-    const formattedForecast = periods.map((period: ForecastPeriod) =>
-      [
-        `${period.name || "Unknown"}:`,
-        `Temperature: ${period.temperature || "Unknown"}°${period.temperatureUnit || "F"}`,
-        `Wind: ${period.windSpeed || "Unknown"} ${period.windDirection || ""}`,
-        `${period.shortForecast || "No forecast available"}`,
-        "---",
-      ].join("\n"),
-    );
-
-    const forecastText = `Forecast for ${latitude}, ${longitude}:\n\n${formattedForecast.join("\n")}`;
-
-    return {
-      content: [
-        {
-          type: "text",
-          text: forecastText,
-        },
-      ],
-    };
-  },
-);```
-
-### Running the server
-Finally, let's initialize and run the server:
-
-    ```typescript
-async function main() {
-  const transport = new StdioServerTransport();
-  await server.connect(transport);
-  console.error("Weather MCP Server running on stdio");
-}
-
-main().catch((error) => {
-  console.error("Fatal error in main():", error);
-  process.exit(1);
-});```
-
-Make sure to run npm run build to build your server! This is a very important step in getting your server to connect.
-
-Let's now test your server from an existing MCP host, GitHub Copilot in VS Code.
-
-## Testing your server with GitHub Copilot in VS Code
-
-   Enable Agent mode if not already enabled:
-   - File -> Preferences -> Settings -> search 'agent' and enable the feature
-   - If it doesn't work - Restart/Update VS Code
-
-    Activate MCP:
-    - File -> Preferences -> Settings -> MCP -> Enable
-
-    Add Weather MCP Server:
-    File -> Preferences -> Settings -> MCP -> Edit in settings.json
-
-    Add the following (if there are additional mcp servers, add only the relevant code blocks):
-    ```{
-      "mcp": {
-        "servers": {
-          "weather": {
-            "command": "node",
-            "args": [
-               "/ABSOLUTE/PATH/TO/PARENT/FOLDER/weather/build/index.js"
-            ],
-          }
-        }
-      }
-    }
-    ```
-
-   This tells GitHub Copilot:
-    1. There's an MCP server named "weather"
-    2. To launch it by running `node /ABSOLUTE/PATH/TO/PARENT/FOLDER/weather/build/index.js`
-
-## What's happening under the hood
-When you ask a question:
-
-1. The client sends your question to GitHub Copilot Agent
-2. The Agent mode analyzes the available tools and decides which one(s) to use
-3. The client executes the chosen tool(s) through the MCP server
-4. The results are sent back to GitHub Copilot Agent
-5. GitHub Copilot Agent Mode formulates a natural language response
-6. The response is displayed to you!
-
-## Troubleshooting
-    **Error: Failed to retrieve grid point data**
-
-    This usually means either:
-
-    1. The coordinates are outside the US
-    2. The NWS API is having issues
-    3. You're being rate limited
-
-    Fix:
-
-    * Verify you're using US coordinates
-    * Add a small delay between requests
-    * Check the NWS API status page
-
-    **Error: No active alerts for \[STATE]**
-
-    This isn't an error - it just means there are no current weather alerts for that state. Try a different state or check during severe weather.
-
-## Next steps
-
-    Learn how to build your own MCP client that can connect to your server - https://modelcontextprotocol.io/quickstart/client
-    
-## Task 5 - Create MCP Server with LLMs (https://modelcontextprotocol.io/tutorials/building-mcp-with-llms)
-   - Enter the readme file in - https://github.com/modelcontextprotocol/typescript-sdk, and copy the raw file
-   - Create a new file under .github/prompts (in root) folder named- llm-mcp.prompt.md
-   - Copy the raw readme content
-   - Open GitHub Copilot Agent Mode, add context - prompts -> llm-mcp.prompt.md
-
-   - Ask GitHub Copilot Agent Mode to build your MCP Server. An example prompt:
-      ```Build an MCP server that:
-      - Connects to my company's PostgreSQL database
-      - Exposes table schemas as resources
-      - Provides tools for running read-only SQL queries
-      - Includes prompts for common data analysis tasks
-      ```
+**Ready to begin?** Start with [Task 0](#task-0---choose-your-ai-model-for-github-copilot-chat) and begin your GitHub Copilot journey! 🚀
