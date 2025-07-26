@@ -5,7 +5,6 @@ import { GoHome, GoHomeFill } from "react-icons/go";
 
 import { CiBasketball } from "react-icons/ci";
 import { FaBasketball, FaWarehouse } from "react-icons/fa6";
-import { IoPeopleOutline, IoPeopleSharp } from "react-icons/io5";
 import { SiGithubcopilot } from "react-icons/si";
 import { MdOutlineSportsHandball } from "react-icons/md";
 
@@ -23,32 +22,8 @@ const routes = [
     activeIcon: FaBasketball,
   },
   {
-    label: "Stadiums",
-    href: "/stadiums",
-    icon: FaWarehouse,
-    activeIcon: FaWarehouse,
-  },
-  {
-    label: "Players Info",
-    href: "/players-info",
-    icon: MdOutlineSportsHandball,
-    activeIcon: MdOutlineSportsHandball,
-  },
-  {
-    label: "Press Conferences",
-    href: "/press-conferences",
-    icon: IoPeopleOutline,
-    activeIcon: IoPeopleSharp,
-  },
-  {
     label: "Optimization",
     href: "/optimization",
-    icon: SiGithubcopilot,
-    activeIcon: SiGithubcopilot,
-  },
-  {
-    label: "Optimization-o1",
-    href: "/optimize-o1",
     icon: SiGithubcopilot,
     activeIcon: SiGithubcopilot,
   },

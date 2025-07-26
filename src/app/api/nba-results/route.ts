@@ -1,34 +1,22 @@
 import { NextRequest, NextResponse } from "next/server";
+import nbaGamesData from "@/data/nba-games.json";
 
 export async function GET(request: NextRequest) {
   try {
-    const url = new URL("https://apiv2.allsportsapi.com/basketball/");
-
-    const params = {
-      met: "Fixtures",
-      APIkey: process.env.NEXT_PUBLIC_NBA_API_KEY,
-      from: "2024-10-01",
-      to: "2024-10-29",
-      leagueId: 766,
+    const response = {
+      result: nbaGamesData
     };
 
-    const urlWithParams = `${url}?${new URLSearchParams(params as any).toString()}`;
-
-    const response = await fetch(urlWithParams, {
-      // Add SSL configuration
-      cache: 'no-store',
+    return NextResponse.json(response, {
+      headers: {
+        'Cache-Control': 'public, max-age=300',
+      },
     });
-
-    if (!response.ok) {
-      throw new Error(`API responded with status: ${response.status}`);
-    }
-
-    const games = await response.json();
-    return NextResponse.json(games);
   } catch (error) {
-    console.error('Error fetching NBA data:', error);
+    console.error('Error serving NBA data:', error);
+    
     return NextResponse.json(
-      { error: "Failed to fetch NBA data" },
+      { error: "Failed to load NBA data. Please try again later." },
       { status: 500 }
     );
   }
