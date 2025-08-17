@@ -438,12 +438,14 @@ You can attach images and work with them directly in Copilot Chat.
 
 **Instructions:**
 1. Open Copilot Chat and select Claude 4 Sonnet model
-2. Navigate to the image folder and attach `login.png` to your chat
-3. Ask Copilot using agent mode: 
+2. Enable preview feature: chat.todoListTool.enable (Supported in VSCode version 1.103 and above)
+3. Navigate to the image folder and attach `login.png` to your chat
+4. Ask Copilot using agent mode: 
    ```
-   Write a React component code based on login.png image
+   Write a React component code based on login.png image.
+   Track your progress with a todo list. 
    ```
-4. Integrate the component into your application
+5. Integrate the component into your application
 
 ---
 
