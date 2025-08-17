@@ -447,19 +447,16 @@ You can attach images and work with them directly in Copilot Chat.
 
 ---
 
-## Task 4 - MCP Servers (Bonus)
+## Task 4 - MCP Servers
 
 ### Prerequisites
 - GitHub PAT (Personal Access Token)
 - Azure DevOps PAT (Personal Access Token)
 
-### 4.1 Add GitHub MCP Server
-
 1. **Switch to Agent Mode**:
    - Open GitHub Copilot Chat and select Agent mode
 
 2. **Add MCP Server**:
-   **Option A: Remote MCP's**:
    - Click the tools icon in the agent mode interface
    - Click "Add more tools"
    - Choose "Add MCP server..."
@@ -485,10 +482,10 @@ Example:
 
 Create a new project to build your own MCP server.
 
-### 5.1 System Requirements
+### 6.1 System Requirements
 - Latest version of Node.js installed
 
-### 5.2 Set Up Environment
+### 6.2 Set Up Environment
 
 **macOS/Linux:**
 ```bash
@@ -512,7 +509,7 @@ md src
 new-item src\index.ts
 ```
 
-### 5.3 Build Your Weather Server
+### 6.3 Build Your Weather Server
 
 Create a weather MCP server that provides weather alerts and forecasts using the National Weather Service API.
 
