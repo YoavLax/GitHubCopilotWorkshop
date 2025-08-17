@@ -173,6 +173,7 @@ Use GitHub Copilot's web search capabilities to learn about Next.js 14 features:
    - `@github How does the routing system work in Next.js 14?`
    - `@github How to create a ui component in Next.js 14?`
 
+By using @github you are: Getting answers grounded in web search, code search, and your enterprise's knowledge bases.
 You can tell that Copilot chat used bing search if you see bing as search resource:
 
 ![Bing Search](image/copilot-bing-search.png)
@@ -249,7 +250,7 @@ One of the common frustrations for developers is documenting their code properly
 
 **Instructions:**
 1. Open `/src/util/calculator.js` - the file contains simple calculator util functions
-2. Open `/src/util/calculator.test.js` (this file should exist but be mostly empty)
+2. Open `/src/util/calculator.test.js` (this file should exist but be empty)
 3. Select all the code in `calculator.js` and press `Cmd+I` (macOS) or `Ctrl+I` (Windows)
 4. Type `/tests` - GitHub Copilot will generate unit tests for the selected functions
 5. Copy the generated tests into `calculator.test.js`
@@ -269,24 +270,12 @@ GitHub Copilot assists in fixing code errors by analyzing context to suggest cor
 **Instructions:**
 1. Navigate to the errors page at http://localhost:3000/errors (this is an 'Add NBA player' page)
 2. Fill in the form and click 'Create player' button - you'll see an error (404)
-3. Ask Copilot Chat to `/explain` the error "/explain POST /api/players 404" with context of `/errors/page.tsx`
+3. Ask Copilot to `/explain` the error "/explain POST /api/players 404" with context of `/errors/page.tsx`
 4. Ask Copilot Chat to fix the error (ask to create the API, providing the page and players data file - `/src/lib/player-info.ts`)
 5. You should now be able to add players
 6. Enhance the form styling by selecting the form, pressing `Ctrl+I`/`Cmd+I`, and asking Copilot to improve the style using TailwindCSS
 
-### 1.8 Optimize Code With GitHub Copilot
-
-GitHub Copilot Chat can help you optimize code (refactor behavior without changing functionality).
-
-**Instructions:**
-1. Click on 'Optimization' page in the web app left menu 
-2. Wait until the page finishes loading (might take ~10s)
-3. Find the API route in the code (use #codebase to help locate it)
-4. **Choose chat model Claude 4 Sonnet**
-5. Ask Copilot Chat to "optimize this code using agent mode" while the relevant route.ts is in the chat context
-6. Make necessary adjustments, then reload the page and ensure it loads fast
-
-### 1.9 Create Player Info Feature
+### 1.8 Create Player Info Feature
 
 Create a comprehensive player information display using file attachments.
 
@@ -301,8 +290,20 @@ Create a comprehensive player information display using file attachments.
    Using the existing player-info API route, create a React component that displays a list of player information showing only the id, name, team, weight, height, and position properties. Ensure each player is displayed in a separate card. Use TailwindCSS and shadcn in your prompt to style the output.
    ```
 
-3. Test your API route: GET request to http://localhost:3000/api/player-info
-4. Open http://localhost:3000/players-info and verify results
+3. Open http://localhost:3000/players-info and verify results
+
+
+### 1.9 Optimize Code With GitHub Copilot
+
+GitHub Copilot Chat can help you optimize code (refactor behavior without changing functionality).
+
+**Instructions:**
+1. Click on 'Optimization' page in the web app left menu 
+2. Wait until the page finishes loading (might take ~10s)
+3. Find the API route in the code (use #codebase to help locate it)
+4. **Choose chat model Claude 4 Sonnet**
+5. Ask Copilot Chat to "optimize this code using agent mode" while the relevant route.ts is in the chat context
+6. Make necessary adjustments, then reload the page and ensure it loads fast
 
 ---
 
@@ -365,6 +366,8 @@ Prompt files allow you to create reusable, shareable prompts for consistent deve
    - Implement logging and monitoring for security events
    ```
    - Test the prompt by adding it as context in Copilot Chat
+3. **Add additional existing chat modes and prompt files**:
+   - Explore and utilize other prompt files in the `.github/` directory to enhance your strategies and API security reviews, by following this link: https://github.com/github/awesome-copilot 
 
 **Benefits of Prompt Files**:
 - Team-wide consistency in AI interactions
@@ -447,8 +450,8 @@ You can attach images and work with them directly in Copilot Chat.
 ## Task 4 - MCP Servers (Bonus)
 
 ### Prerequisites
-- Docker Running
 - GitHub PAT (Personal Access Token)
+- Azure DevOps PAT (Personal Access Token)
 
 ### 4.1 Add GitHub MCP Server
 
@@ -456,71 +459,29 @@ You can attach images and work with them directly in Copilot Chat.
    - Open GitHub Copilot Chat and select Agent mode
 
 2. **Add MCP Server**:
+   **Option A: Remote MCP's**:
    - Click the tools icon in the agent mode interface
    - Click "Add more tools"
    - Choose "Add MCP server..."
-   - Select "Command (stdio)" as the connection type
-   - Enter a placeholder command (we'll edit it later): `echo "placeholder"`
-   - Give the MCP server a name or press Enter for default
-   - Choose "Global" (applies to all projects) or "Workspace" (current project only)
-   - Add the following configuration:
-
-   **Option A: Remote OAuth**:
-   ```json
-   {
-     "servers": {
-       "github": {
-         "type": "http",
-         "url": "https://api.githubcopilot.com/mcp/"
-       }
-     }
-   }
-   ```
-
-   **Option B: Local Docker with PAT**:
-   ```json
-   {
-     "mcp": {
-       "inputs": [
-         {
-           "type": "promptString",
-           "id": "github_token",
-           "description": "GitHub Personal Access Token",
-           "password": true
-         }
-       ],
-       "servers": {
-         "github": {
-           "command": "docker",
-           "args": [
-             "run",
-             "-i",
-             "--rm",
-             "-e",
-             "GITHUB_PERSONAL_ACCESS_TOKEN",
-             "ghcr.io/github/github-mcp-server"
-           ],
-           "env": {
-             "GITHUB_PERSONAL_ACCESS_TOKEN": "${input:github_token}"
-           }
-         }
-       }
-     }
-   }
-   ```
-
-3. **Use GitHub MCP tools**:
-   ```
-   Create a new GitHub repository with the name - agent-demo, make sure it's private.
-   To this new repo, create a new branch which I would be the owner of, named - agent-branch.
-   Then push this project to the agent-branch and create a new pull request which I would be the owner of, in the new repository you just created. Call it - first PR. Main branch is the base.
-   ```
+   - Select "Browse MCP Servers"
+   - Add a new MCP server: github, Azure DevOps, Confluence, etc.
 
 > Note: Review all GitHub MCP Server available tools at: https://github.com/github/github-mcp-server
 
 ---
 
-## Task 5 - Build Your Own MCP Server (Bonus) - New Project
+## Task 5 - Github Copilot Coding Agent
+1. **Create a new issue in this GitHub repository**:
+Example:   
+   - Title: `Create dark mode toggle for this web app`
+   - Description: `Create a dark mode ability for this web app, it should be a toggle on the top right corner of the page`
+2. **Assign the issue to copilot**
+   - Click on "Assignees"
+   - Select "Copilot"
+3. **PR should be created automatically by Copilot**
+   - You will be called to review once the PR is complete.
+
+## Task 6 - Build Your Own MCP Server (Bonus) - New Project
 
 Create a new project to build your own MCP server.
 
