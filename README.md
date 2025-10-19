@@ -453,19 +453,46 @@ You can attach images and work with them directly in Copilot Chat.
 
 ### Prerequisites
 - GitHub PAT (Personal Access Token)
-- Azure DevOps PAT (Personal Access Token)
+- Azure DevOps PAT (Personal Access Token) (optional)
 
 1. **Switch to Agent Mode**:
    - Open GitHub Copilot Chat and select Agent mode
 
-2. **Add MCP Server**:
+2. **Add MCP Servers**:
    - Click the tools icon in the agent mode interface
    - Click "Add more tools"
    - Choose "Add MCP server..."
    - Select "Browse MCP Servers"
-   - Add a new MCP server: github, Azure DevOps, Confluence, etc.
+   - Add MCP servers: GitHub, Playwright, Azure DevOps & Atlassian
 
 > Note: Review all GitHub MCP Server available tools at: https://github.com/github/github-mcp-server
+
+### 4.1 Use Case: End-to-End Testing with Playwright MCP
+
+**Goal:** Automatically test your NBA application's critical user flows without writing test code.
+
+**Instructions:**
+1. Ensure your app is running: `npm run dev`
+2. In Agent mode with Playwright MCP enabled, ask:
+   ```
+   Using Playwright mcp, test the complete user flow:
+   1. Navigate to http://localhost:3000
+   2. Click on "NBA Scores" in the navigation
+   3. Verify game scores are displayed
+   4. Click on "Stadiums" 
+   5. Verify stadium cards are rendered
+   6. Take screenshots of each page
+   7. Generate a test report with pass/fail results
+   ```
+
+3. Review the automated test execution and results
+4. Ask Copilot to fix any failing tests or improve coverage
+
+**Why This Is Powerful:**
+- No manual testing needed
+- Instant regression detection
+- Visual proof of functionality
+- AI handles complex selectors and timing automatically
 
 ---
 
