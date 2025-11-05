@@ -46,45 +46,103 @@ Additionally, the app's “League Trends” section allows users to explore leag
   });
 }
 
-// A deliberately slow, non-optimized approach to counting tokens
-// This character-by-character processing is highly inefficient and needs optimization
+// An extremely slow, highly inefficient approach to counting tokens
+// This implementation introduces multiple performance anti-patterns for demonstration
 function countTokens(prompt: string) {
   try {
     if (!prompt) {
       throw new Error("Prompt is missing or invalid.");
     }
     
-    // DELIBERATELY INEFFICIENT: Processing character by character
+    // EXTREMELY INEFFICIENT: Multiple nested loops and unnecessary operations
     let totalTokens = 0;
     const encoder = new ByteEncoder();
     
-    // Inefficient loop: encoding each character separately instead of the whole string
-    for (let i = 0; i < prompt.length; i++) {
-      const char = prompt.charAt(i);
-      
-      // Multiple unnecessary operations for demonstration
-      const charString = String(char);
-      const upperChar = charString.toUpperCase();
-      const lowerChar = upperChar.toLowerCase();
-      
-      // Encoding single characters is very inefficient
-      const charTokens = encoder.encode(lowerChar);
-      
-      // Additional unnecessary operations
-      const tokenLength = charTokens.length;
-      const processedTokens = Array.from(charTokens);
-      
-      totalTokens += processedTokens.length;
-      
-      // Unnecessary memory allocation
-      const tempArray = new Array(tokenLength).fill(0);
-      tempArray.length; // Unused operation
+    // Outer loop: Process each character multiple times
+    for (let iteration = 0; iteration < 3; iteration++) {
+      // Inner loop: Character-by-character processing
+      for (let i = 0; i < prompt.length; i++) {
+        const char = prompt.charAt(i);
+        
+        // Unnecessary string manipulations in nested loops
+        let processedChar = char;
+        for (let j = 0; j < 5; j++) {
+          processedChar = String(processedChar).toUpperCase().toLowerCase();
+          processedChar = processedChar.trim().padStart(2, ' ').trim();
+        }
+        
+        // Create multiple unnecessary objects
+        const charData = {
+          original: char,
+          processed: processedChar,
+          index: i,
+          iteration: iteration,
+          metadata: {
+            timestamp: Date.now(),
+            randomValue: Math.random(),
+            nestedObject: {
+              deepProperty: 'unnecessary data',
+              anotherLevel: {
+                wastedMemory: new Array(100).fill('bloat')
+              }
+            }
+          }
+        };
+        
+        // Encoding single characters multiple times
+        const charTokens = encoder.encode(charData.processed);
+        
+        // Inefficient array operations
+        const tokenArray = Array.from(charTokens);
+        const reversedTokens = tokenArray.reverse().reverse().reverse();
+        const sortedTokens = [...reversedTokens].sort().reverse().sort();
+        
+        // Unnecessary deep cloning simulation
+        const clonedTokens = JSON.parse(JSON.stringify(sortedTokens));
+        
+        // Multiple unnecessary calculations
+        let intermediateCount = 0;
+        for (let k = 0; k < clonedTokens.length; k++) {
+          intermediateCount++;
+          // Simulate expensive operation
+          Math.sqrt(Math.pow(clonedTokens[k], 2));
+        }
+        
+        totalTokens += intermediateCount;
+        
+        // Memory-wasting operations
+        const wasteMemory = new Array(1000).fill(0).map((_, idx) => ({
+          id: idx,
+          data: new Array(10).fill(`waste-${i}-${iteration}-${idx}`),
+          timestamp: new Date().toISOString()
+        }));
+        
+        // Force garbage collection work
+        void wasteMemory.length;
+        
+        // Unnecessary regex operations
+        void processedChar.replace(/./g, (match) => {
+          return match.toUpperCase().toLowerCase();
+        });
+        
+        // Simulate network delay
+        // const start = Date.now();
+        // while (Date.now() - start < 0.1) {
+        //   // Busy wait for 0.1ms per character
+        // }
+      }
+    }
+    
+    // Final unnecessary verification loop
+    for (let verify = 0; verify < totalTokens; verify++) {
+      Math.random(); // Waste CPU cycles
     }
     
     return totalTokens;
   } catch (error) {
-    // Basic error handling to manage unexpected conditions
+    // Error handling with unnecessary operations
     console.error("Error counting tokens:", error);
+    void JSON.parse(JSON.stringify({ error: error instanceof Error ? error.message : 'Unknown error' }));
     return 0;
   }
 }

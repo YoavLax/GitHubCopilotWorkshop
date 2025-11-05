@@ -134,7 +134,7 @@ npm run test:watch # Run tests in watch mode
 Select the appropriate AI model based on your task:
 
 - **GPT-4.1**: Best for general development, UI components, basic API routes, code documentation, and bug fixes
-- **Claude 4 Sonnet**: Excellent for code optimization, complex problem-solving, agent mode tasks, and performance improvements
+- **Claude Sonnet 4.5**: Excellent for code optimization, complex problem-solving, agent mode tasks, and performance improvements
 
 **How to Switch Models**:
 1. Open GitHub Copilot Chat
@@ -166,7 +166,7 @@ Select the appropriate AI model based on your task:
 Use GitHub Copilot's web search capabilities to learn about Next.js 14 features:
 
 **Instructions:**
-1. Open GitHub Copilot Chat
+1. Open GitHub Copilot Chat in Ask mode
 2. Ask these prompts one by one (don't copy-paste):
    - `@github How do I create an API route in Next.js 14?`
    - `@github What are Server Actions in Next.js 14?`
@@ -225,7 +225,7 @@ GitHub Copilot can review your code and provide feedback with suggested changes.
 **Instructions:**
 1. Open `/src/app/api/nba-results/route.ts`
 2. Select all the file code
-3. Right-click and choose 'Copilot -> Review and Comment'
+3. Right-click and choose 'Generate Code -> Review'
 4. Review Copilot's feedback and apply suggested improvements
 5. Repeat for other API routes
 
@@ -253,7 +253,7 @@ One of the common frustrations for developers is documenting their code properly
 2. Open `/src/util/calculator.test.js` (this file should exist but be empty)
 3. Select all the code in `calculator.js` and press `Cmd+I` (macOS) or `Ctrl+I` (Windows)
 4. Type `/tests` - GitHub Copilot will generate unit tests for the selected functions
-5. Copy the generated tests into `calculator.test.js`
+5. If they weren't created by Copilot in `calculator.test.js`, copy the generated tests into `calculator.test.js`
 6. Run tests: `npm test src/util/calculator.test.js`
 7. If tests fail, copy the terminal error message, select the failing test code, press `Ctrl+I`/`Cmd+I`, and type `/fix` followed by pasting the error message
 
@@ -270,10 +270,10 @@ GitHub Copilot assists in fixing code errors by analyzing context to suggest cor
 **Instructions:**
 1. Navigate to the errors page at http://localhost:3000/errors (this is an 'Add NBA player' page)
 2. Fill in the form and click 'Create player' button - you'll see an error (404)
-3. Ask Copilot to `/explain` the error "/explain POST /api/players 404" with context of `/errors/page.tsx`
-4. Ask Copilot Chat to fix the error (ask to create the API, providing the page and players data file - `/src/lib/player-info.ts`)
+3. Ask Copilot to `/explain` the error "/explain POST /api/players 404" with context of `/src/app/(dashboard)/errors/errors/page.tsx`
+4. Ask Copilot Chat in Edit mode to fix the error (ask to create the API, providing the page and players data file - `/src/lib/player-info.ts`)
 5. You should now be able to add players
-6. Enhance the form styling by selecting the form, pressing `Ctrl+I`/`Cmd+I`, and asking Copilot to improve the style using TailwindCSS
+6. Enhance the form styling at `/src/app/(dashboard)/players-info/page.tsx` by selecting the form, pressing `Ctrl+I`/`Cmd+I`, and asking Copilot to improve the style using TailwindCSS
 
 ### 1.8 Create Player Info Feature
 
@@ -301,8 +301,8 @@ GitHub Copilot Chat can help you optimize code (refactor behavior without changi
 1. Click on 'Optimization' page in the web app left menu 
 2. Wait until the page finishes loading (might take ~10s)
 3. Find the API route in the code (use #codebase to help locate it)
-4. **Choose chat model Claude 4 Sonnet**
-5. Ask Copilot Chat to "optimize this code using agent mode" while the relevant route.ts is in the chat context
+4. **Choose chat model Claude Sonnet 4.5**
+5. Ask Copilot Chat to "optimize this code" while the relevant route.ts is in the chat context
 6. Make necessary adjustments, then reload the page and ensure it loads fast
 
 ---
@@ -384,7 +384,7 @@ The rollback feature allows you to edit previous prompts and reapply changes wit
    - Ask Copilot Chat to create a simple NBA player card component
    - After receiving the response, click on your original prompt in the chat history
    - Edit the prompt to request additional features (e.g., "also add player statistics and hover effects")
-   - Switch to a different model (e.g., from GPT-4.1 to Claude 4 Sonnet)
+   - Switch to a different model (e.g., from GPT-4.1 to Claude Sonnet 4.5)
    - Apply the changes and observe how Copilot reverts and reapplies with the new context
 
 2. **Advanced Rollback Scenarios**:
@@ -409,7 +409,7 @@ GitHub Copilot's agent mode can iterate on its own code, recognize errors, and f
 
 **Instructions:**
 1. Open GitHub Copilot Chat, choose agent mode
-2. From the dropdown menu select Agent mode and Claude 4 Sonnet model
+2. From the dropdown menu select Agent mode and Claude Sonnet 4.5 model
 3. Include a prompt to generate a new Stadium feature:
 
 ```
@@ -434,10 +434,10 @@ Let's enhance this application by adding an NBA Stadiums page.
 
 ### 3.2 Add Login Screen using GitHub Copilot Vision
 
-You can attach images and work with them directly in Copilot Chat.
+You can attach an example image and work with it directly in Copilot Chat.
 
 **Instructions:**
-1. Open Copilot Chat and select Claude 4 Sonnet model
+1. Open Copilot Chat and select Claude Sonnet 4.5 model
 2. Enable preview feature: chat.todoListTool.enable (Supported in VSCode version 1.103 and above)
 3. Navigate to the image folder and attach `login.png` to your chat
 4. Ask Copilot using agent mode: 
@@ -460,10 +460,15 @@ You can attach images and work with them directly in Copilot Chat.
 
 2. **Add MCP Servers**:
    - Click the tools icon in the agent mode interface
-   - Click "Add more tools"
-   - Choose "Add MCP server..."
-   - Select "Browse MCP Servers"
+   - Click "Add MCP server... icon"
+   - Select "Browse MCP Servers..."
    - Add MCP servers: GitHub, Playwright, Azure DevOps & Atlassian
+
+3. **Use MCP Tools in Agent Mode**:
+   - Now you can use the added MCP server tools in your agent mode sessions
+   - Use your Azure DevOps MCP to see what you are working on this sprint
+   - Use Atlassian MCP to see your Confluence pages
+   - Use GitHub MCP to interact with your GitHub repositories
 
 > Note: Review all GitHub MCP Server available tools at: https://github.com/github/github-mcp-server
 
@@ -507,7 +512,19 @@ Example:
 3. **PR should be created automatically by Copilot**
    - You will be called to review once the PR is complete.
 
-## Task 6 - Build Your Own MCP Server (Bonus) - New Project
+## Task 6 -Use Extensions for managing Instructions, Prompts and Chat Modes
+
+1. Open the extensions marketplace in your IDE
+2. Search for "Effective AI Kit" and install it
+3. in your chat window, type '/' to see the available prompts, for example:
+   - "/create-readme"
+   - "/dotnet-design-pattern-review "
+4. Write a message to Copilot chat - you should see instruction files being referenced.
+   - "performance-optimization.instructions.md"
+   - "memory-bank.instructions.md"
+
+
+## Task 7 - Build Your Own MCP Server (Bonus) - New Project
 
 Create a new project to build your own MCP server.
 
