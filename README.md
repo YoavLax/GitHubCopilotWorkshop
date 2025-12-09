@@ -273,7 +273,7 @@ GitHub Copilot assists in fixing code errors by analyzing context to suggest cor
 3. Ask Copilot to `/explain` the error "/explain POST /api/players 404" with context of `/src/app/(dashboard)/errors/page.tsx`
 4. Ask Copilot Chat in Edit mode to fix the error (ask to create the API, providing the page and players data file - `/src/lib/player-info.ts`)
 5. You should now be able to add players
-6. Enhance the form styling at `/src/app/(dashboard)/players-info/page.tsx` by selecting the form, pressing `Ctrl+I`/`Cmd+I`, and asking Copilot to improve the style using TailwindCSS
+6. Enhance the form styling by creating `/src/app/(dashboard)/players-info/page.tsx` to display all players, then improve the UI by: pressing `Ctrl+I`/`Cmd+I`, and asking Copilot to improve the style using TailwindCSS
 
 ### 1.8 Create Player Info Feature
 
