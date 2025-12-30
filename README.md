@@ -499,6 +499,97 @@ You can attach an example image and work with it directly in Copilot Chat.
 - Visual proof of functionality
 - AI handles complex selectors and timing automatically
 
+
+### 4.2 Working with Agent Skills
+
+## What Are Agent Skills?
+
+**Agent Skills** are a new open standard for AI agent automation that teach GitHub Copilot how to perform specialized tasks in a repeatable, modular way. Skills are stored in the `.github/skills/` directory as structured packages of instructions that agents can automatically discover and use when relevant to your task.
+
+## Workshop Skill: WebApp Testing
+
+This workshop includes a **WebApp Testing** skill located at `.github/skills/webapp-testing/SKILL.md`.
+
+### Purpose
+
+The WebApp Testing skill enables automated UI testing for web applications using Playwright, providing comprehensive test coverage, visual verification through screenshots, and detailed test reports.
+
+### When to Use This Skill
+
+Use the webapp-testing skill when you need to:
+- ✅ Test complete user flows and interactions
+- ✅ Verify that UI components render correctly
+- ✅ Ensure navigation between pages works as expected
+- ✅ Capture screenshots for visual verification
+- ✅ Generate test reports with pass/fail results
+- ✅ Perform regression testing after code changes
+
+### How to Use the WebApp Testing Skill
+
+1. **Ensure your app is running**: Start the development server with `npm run dev`
+2. **Open Agent mode**: Switch to Agent mode in GitHub Copilot Chat (use Claude Sonnet 4.5 model)
+3. **Enable Playwright MCP**: Add Playwright MCP server in Agent mode tools
+4. **Reference the skill**: Mention "webapp-testing skill" in your prompt, or simply describe the testing task
+
+### Example: Testing the NBA Application
+
+```
+Using the webapp-testing skill, test the complete user flow:
+1. Navigate to http://localhost:3000
+2. Click on "NBA Scores" in the navigation
+3. Verify game scores are displayed
+4. Click on "Stadiums"
+5. Verify stadium cards are rendered
+6. Take screenshots of each page
+7. Generate a test report with pass/fail results
+```
+
+Copilot will automatically:
+- Load the webapp-testing skill instructions
+- Use Playwright MCP to interact with your application
+- Execute each test step systematically
+- Capture screenshots at specified points
+- Generate a comprehensive test report
+- Identify any issues and suggest fixes
+
+### Practice Exercise: Test Your Features
+
+Try testing features you built earlier in the workshop using the webapp-testing skill. For example, test the players-info page (Task 1.8) or the add player form (Task 1.7) by asking Copilot to navigate, verify, and take screenshots.
+
+## Creating Your Own Skills
+
+Want to create a custom skill for your team? Follow these steps:
+
+1. **Create the skill directory**:
+   ```bash
+   mkdir -p .github/skills/my-custom-skill
+   ```
+
+2. **Create the SKILL.md file** with YAML frontmatter:
+   ```markdown
+   ---
+   name: My Custom Skill
+   description: Brief description of what the skill does
+   ---
+
+   # My Custom Skill
+
+   Detailed instructions on when and how to use this skill...
+   ```
+
+3. **Add supporting resources**: Include any scripts, templates, or files needed
+
+4. **Test the skill**: Use Agent mode and reference your skill in prompts
+
+5. **Share with your team**: Commit to your repository for team-wide access
+
+## Learn More
+
+- 📖 [GitHub Docs: About Agent Skills](https://docs.github.com/en/copilot/concepts/agents/about-agent-skills)
+- 🛠️ [VS Code: Use Agent Skills](https://code.visualstudio.com/docs/copilot/customization/agent-skills)
+- 🔬 [Anthropic Skills Repository](https://github.com/anthropics/skills/tree/main/skills)
+- 🌐 [Agent Skills Specification](https://github.com/agentskills/agentskills)
+
 ---
 
 ## Task 5 - Github Copilot Coding Agent
