@@ -534,7 +534,7 @@ Use the webapp-testing skill when you need to:
 ### Example: Testing the NBA Application
 
 ```
-Using Playwright MCP and the webapp-testing skill, test the complete user flow:
+Using the webapp-testing skill, test the complete user flow:
 1. Navigate to http://localhost:3000
 2. Click on "NBA Scores" in the navigation
 3. Verify game scores are displayed
