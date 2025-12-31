@@ -273,7 +273,7 @@ GitHub Copilot assists in fixing code errors by analyzing context to suggest cor
 3. Ask Copilot to `/explain` the error "/explain POST /api/players 404" with context of `/src/app/(dashboard)/errors/page.tsx`
 4. Ask Copilot Chat in Edit mode to fix the error (ask to create the API, providing the page and players data file - `/src/lib/player-info.ts`)
 5. You should now be able to add players
-6. Enhance the form styling by creating `/src/app/(dashboard)/players-info/page.tsx` to display all players, then improve the UI by: pressing `Ctrl+I`/`Cmd+I`, and asking Copilot to improve the style using TailwindCSS
+6. Ask copilot to rename the api route and page to 'Add NBA player'. 
 
 ### 1.8 Create Player Info Feature
 
@@ -283,7 +283,6 @@ Create a comprehensive player information display using file attachments.
 1. Add these files to Chat context (attach files or drag&drop):
    - `/src/app/api/player-info/route.ts` - API to fetch players data (already exists)
    - `/src/lib/player-info.ts` - Players data
-   - You'll need to create: `/src/app/(dashboard)/players-info/page.tsx` - Players info page
 
 2. Ask Copilot using either edit or agent mode: 
    ```
@@ -502,8 +501,6 @@ You can attach an example image and work with it directly in Copilot Chat.
 
 ### 4.2 Working with Agent Skills
 
-## What Are Agent Skills?
-
 **Agent Skills** are a new open standard for AI agent automation that teach GitHub Copilot how to perform specialized tasks in a repeatable, modular way. Skills are stored in the `.github/skills/` directory as structured packages of instructions that agents can automatically discover and use when relevant to your task.
 
 ## Workshop Skill: WebApp Testing
@@ -527,7 +524,7 @@ Use the webapp-testing skill when you need to:
 ### How to Use the WebApp Testing Skill
 
 1. **Ensure your app is running**: Start the development server with `npm run dev`
-2. **Open Agent mode**: Switch to Agent mode in GitHub Copilot Chat (use Claude Sonnet 4.5 model)
+2. **Open Agent mode**: Switch to Agent mode in GitHub Copilot Chat
 3. **Enable Playwright MCP**: Add Playwright MCP server in Agent mode tools
 4. **Reference the skill**: Mention "webapp-testing skill" in your prompt, or simply describe the testing task
 
@@ -614,15 +611,130 @@ Example:
    - "performance-optimization.instructions.md"
    - "memory-bank.instructions.md"
 
+---
 
-## Task 7 - Build Your Own MCP Server (Bonus) - New Project
+## Task 7 - GitHub Copilot CLI
+
+GitHub Copilot CLI is a powerful terminal-based AI assistant that brings the full capabilities of GitHub Copilot directly to your command line. Unlike traditional CLI tools, Copilot CLI works as an interactive agent that can understand your codebase, make changes, and help you build features through natural language conversations.
+
+### 7.1 Installation and Setup
+
+**Step 1: Install Copilot CLI**
+
+**macOS/Linux:**
+```bash
+# Install using npm (recommended)
+npm install -g @githubnext/github-copilot-cli
+```
+
+**Windows:**
+```powershell
+# Install using npm
+npm install -g @githubnext/github-copilot-cli
+```
+
+**Step 2: Verify Installation**
+```bash
+copilot --version
+```
+
+**Step 3: Open your workspace**
+
+Navigate to the folder containing your code and launch Copilot CLI:
+```bash
+cd /path/to/your/project
+copilot
+```
+
+The first time you run it, you'll be prompted to authenticate with GitHub. Follow the authentication flow in your browser.
+
+### 7.2 Using GitHub Copilot CLI
+
+Once authenticated, Copilot CLI runs as an interactive agent in your terminal.
+
+**Launch Copilot CLI:**
+```bash
+# Navigate to your project directory
+cd ../../GitHub_Copilot_Workshop
+
+# Launch Copilot CLI
+copilot
+```
+
+**Switch Models (Optional):**
+
+Once Copilot CLI is running, you can switch models using the `/model` slash command:
+```
+/model
+```
+
+Usefull command:
+```
+/share → Share session to markdown file or GitHub gist
+/mcp → Manage MCP server configurations
+/usage → Display session usage metrics and statistics
+```
+
+**Basic Usage:**
+
+After launching Copilot CLI, simply describe what you want to accomplish in natural language. Copilot will:
+- Understand your codebase context
+- Generate or modify code files
+- Execute commands when appropriate
+- Explain its reasoning and approach
+
+### 7.3 Hands-On Exercise: Enhance the NBA Workshop App
+
+#### **Exercise 1: Add a Teams Feature**
+
+1. **Launch Copilot CLI in the workshop directory:**
+
+2. **Give Copilot a prompt to add a complete Teams feature:**
+   ```
+   Create a new Teams API route and display it on the web interface. 
+   The API should return a list of NBA teams with their name, city, and conference.
+   Add a new page at /teams that displays this data in cards using Tailwind CSS and shadcn/ui components.
+   Also add a navigation link to the teams page.
+   ```
+
+3. **Review Copilot's plan:**
+   - Copilot will analyze your codebase structure
+   - It will show you which files it plans to create or modify
+   - Review the proposed changes before accepting
+
+4. **Accept or refine the changes:**
+   - If you're happy with the plan, confirm to proceed
+   - If you want adjustments, provide additional instructions
+   - Copilot will iterate based on your feedback
+
+#### **Exercise 2: Add Search Functionality**
+
+Continue your Copilot CLI session and add a search feature:
+
+```
+Add a search bar to the Teams page that allows users to filter teams by name or city.
+The search should work in real-time as the user types.
+```
+
+#### **Exercise 3: Create Player Statistics Page**
+
+Ask Copilot to build a more complex feature:
+
+```
+Create a new page at /player-stats that shows player statistics.
+Create an API route that returns sample data for top 10 NBA players with their points, rebounds, and assists.
+Display the data in a sortable table.
+Add this page to the navigation menu.
+```
+
+## Task 8 - Build Your Own MCP Server (Bonus) - New Project
 
 Create a new project to build your own MCP server.
 
-### 6.1 System Requirements
+### 8.1 System Requirements
 - Latest version of Node.js installed
 
-### 6.2 Set Up Environment
+### 8.2 Set Up Environment
 
 **macOS/Linux:**
 ```bash
@@ -646,7 +758,7 @@ md src
 new-item src\index.ts
 ```
 
-### 6.3 Build Your Weather Server
+### 8.3 Build Your Weather Server
 
 Create a weather MCP server that provides weather alerts and forecasts using the National Weather Service API.
 
