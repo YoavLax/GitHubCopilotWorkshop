@@ -17,7 +17,8 @@ interface NBAGame {
 
 export default async function NBAScores() {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/nba-results`, {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080';
+    const response = await fetch(`${apiUrl}/api/nba-results`, {
       next: { revalidate: 300 }, // Cache for 5 minutes
     });
 

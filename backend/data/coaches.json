@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "name": "Steve Kerr",
+    "age": 57,
+    "team": "Golden State Warriors",
+    "history": [
+      {"year": 2015, "achievement": "NBA Champion"},
+      {"year": 2017, "achievement": "NBA Champion"},
+      {"year": 2018, "achievement": "NBA Champion"}
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Erik Spoelstra",
+    "age": 53,
+    "team": "Miami Heat",
+    "history": [
+      {"year": 2012, "achievement": "NBA Champion"},
+      {"year": 2013, "achievement": "NBA Champion"}
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Doc Rivers",
+    "age": 62,
+    "team": "Philadelphia 76ers",
+    "history": [
+      {"year": 2008, "achievement": "NBA Champion (with Boston Celtics)"}
+    ]
+  }
+]

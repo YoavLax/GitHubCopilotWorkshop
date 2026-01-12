@@ -25,7 +25,9 @@ const ErrorPageFixing = () => {
     setErrorMessage("");
     
     try {
-      const response = await fetch("/api/players", {
+      // Use backend API URL
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080';
+      const response = await fetch(`${apiUrl}/api/players`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
