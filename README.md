@@ -1,8 +1,8 @@
 # GitHub Copilot Workshop - NBA Sports Application
 
-Welcome to the comprehensive GitHub Copilot Workshop! This hands-on workshop will teach you to leverage AI-powered development through a real NBA sports application built with Next.js 14.
+Welcome to the comprehensive GitHub Copilot Workshop! This hands-on workshop will teach you to leverage AI-powered development through a real NBA sports application built with **Next.js 14 (Frontend)** and **Python Flask (Backend)**.
 
-❗**Note**: No mastery of JavaScript or Next.js is needed - AI will generate most of the code for you in this exercise. Even if you are not very familiar, it's a great opportunity to leverage AI to quickly learn a popular framework.
+❗**Note**: No mastery of JavaScript, Python, or Next.js is needed - AI will generate most of the code for you in this exercise. Even if you are not very familiar, it's a great opportunity to leverage AI to quickly learn popular frameworks.
 
 ## 🎯 Workshop Objectives
 
@@ -18,10 +18,15 @@ By the end of this workshop, you'll master:
 1. **GitHub Copilot License**: Active GitHub Copilot license (paid tier, not the free version)
 2. **IDE Setup**: Install and update GitHub Copilot & GitHub Copilot Chat extensions in your IDE
 3. **Authentication**: Login to GitHub Copilot and verify both code completions and chat work
-4. **Runtime**: Install [Node.js](https://nodejs.org/en/download) & npm. Verify with:
+4. **Frontend Runtime**: Install [Node.js](https://nodejs.org/en/download) & npm. Verify with:
    ```bash
    node -v
    npm -v
+   ```
+5. **Backend Runtime**: Install [Python 3.8+](https://www.python.org/downloads/) & pip. Verify with:
+   ```bash
+   python --version
+   pip --version
    ```
 
 ### Optional for Advanced Features
@@ -35,18 +40,38 @@ This section provides a quick overview. For detailed setup, see Task 0.
 1. **Clone the repository**
    ```bash
    git clone <repository-url>
-   cd GitHubCopilotWorkshop-master
+   cd GitHubCopilotWorkshop
    ```
 
-2. **Install dependencies**
+2. **Set up the Backend (Python Flask)**
    ```bash
+   cd backend
+   python -m venv venv
+   
+   # On Windows:
+   venv\Scripts\activate
+   
+   # On macOS/Linux:
+   source venv/bin/activate
+   
+   pip install -r requirements.txt
+   python app.py
+   ```
+   
+   Backend will run on http://localhost:8080
+
+3. **Set up the Frontend (Next.js) - In a new terminal**
+   ```bash
+   # From the root directory
    npm install
-   ```
-
-3. **Start the development server**
-   ```bash
+   
+   # Create .env.local file with:
+   echo "NEXT_PUBLIC_API_URL=http://localhost:8080" > .env.local
+   
    npm run dev
    ```
+   
+   Frontend will run on http://localhost:3000
 
 4. **Open the application**
    Navigate to [http://localhost:3000](http://localhost:3000) in your browser
@@ -57,50 +82,74 @@ This section provides a quick overview. For detailed setup, see Task 0.
 - 📊 **Live NBA Results**: Real-time game scores and statistics
 - 🎯 **Player Information**: Comprehensive player stats and profiles  
 - 🏟️ **Stadium Information**: NBA venues and facility details
+- 👨‍🏫 **Coach Management**: NBA coaches and their achievements
 - ⚡ **Performance Optimization**: Examples for code optimization exercises
 - 🔧 **Error Handling**: Debugging and error resolution practice
 
 ## 🛠️ Technology Stack
 
+### Frontend
 - **Framework**: Next.js 14 with App Router
 - **Language**: TypeScript for type safety
 - **Styling**: Tailwind CSS with shadcn/ui components
 - **Testing**: Jest and React Testing Library
 - **State Management**: React Query (TanStack Query)
-- **API**: Next.js API Routes
+
+### Backend
+- **Framework**: Python Flask 3.0.0
+- **CORS**: Flask-CORS for cross-origin requests
+- **Data Storage**: JSON files (for workshop purposes)
+- **API Design**: RESTful API endpoints
 
 ## 📁 Project Structure
 
 ```
-├── src/
-│   ├── app/                    # Next.js 14 App Router
-│   │   ├── (dashboard)/        # Dashboard layout group
-│   │   │   ├── nba-scores/     # NBA game results
-│   │   │   ├── stadiums/       # Stadium information
-│   │   │   ├── optimization/   # Performance examples
-│   │   │   └── errors/         # Error handling examples
-│   │   └── api/                # API routes
-│   ├── components/             # Reusable UI components
-│   │   └── ui/                 # shadcn/ui components
-│   ├── lib/                    # Utility functions and data
-│   └── hooks/                  # Custom React hooks
-├── __tests__/                  # Test files
-├── .github/                    # GitHub configuration
+├── backend/                   # Python Flask Backend
+│   ├── app.py                # Main Flask application
+│   ├── requirements.txt      # Python dependencies
+│   ├── data/                 # JSON data files
+│   │   ├── nba-games.json
+│   │   ├── stadiums.json
+│   │   ├── player-info.json
+│   │   └── coaches.json
+│   └── README.md            # Backend documentation
+├── src/                      # Next.js Frontend
+│   ├── app/                  # Next.js 14 App Router
+│   │   ├── (dashboard)/      # Dashboard layout group
+│   │   │   ├── nba-scores/   # NBA game results
+│   │   │   ├── stadiums/     # Stadium information
+│   │   │   ├── optimization/ # Performance examples
+│   │   │   └── errors/       # Error handling examples
+│   │   └── layout.tsx        # Root layout
+│   ├── components/           # Reusable UI components
+│   │   └── ui/              # shadcn/ui components
+│   ├── lib/                 # Utility functions
+│   └── hooks/               # Custom React hooks
+├── __tests__/               # Test files
+├── .github/                 # GitHub configuration
 │   ├── copilot-instructions.md # Custom Copilot instructions
-│   ├── chatmodes/              # Custom chat modes
-│   └── prompts/                # Reusable prompt templates
-└── image/                      # Workshop assets and screenshots
+│   ├── chatmodes/           # Custom chat modes
+│   └── prompts/             # Reusable prompt templates
+└── image/                   # Workshop assets and screenshots
 ```
 
 ## 🔧 Development Scripts
 
+### Frontend (Next.js)
 ```bash
-npm run dev        # Start development server
+npm run dev        # Start development server (port 3000)
 npm run build      # Build for production
 npm run start      # Start production server
 npm run lint       # Run ESLint
 npm run test       # Run Jest tests
 npm run test:watch # Run tests in watch mode
+```
+
+### Backend (Flask)
+```bash
+# From backend/ directory
+python app.py      # Start Flask server (port 8080)
+# Note: Activate virtual environment first
 ```
 
 ---
@@ -110,23 +159,66 @@ npm run test:watch # Run tests in watch mode
 ## Task 0 - Setup & Model Selection
 
 ### Environment Setup
-1. **Clone the repository**
+
+#### Backend Setup (Python Flask)
+1. **Navigate to the backend directory:**
    ```bash
-   git clone <repository-url>
-   cd <project-folder>
+   cd backend
    ```
 
-2. **Install dependencies**
+2. **Create and activate a virtual environment:**
+   ```bash
+   python -m venv venv
+   
+   # On Windows:
+   venv\Scripts\activate
+   
+   # On macOS/Linux:
+   source venv/bin/activate
+   ```
+
+3. **Install Python dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Start the Flask server:**
+   ```bash
+   python app.py
+   ```
+   
+   The backend will be available at http://localhost:8080
+
+5. **Verify the backend is running:**
+   ```bash
+   curl http://localhost:8080/api/health
+   ```
+
+#### Frontend Setup (Next.js)
+1. **Open a new terminal and navigate to the project root:**
+   ```bash
+   cd /path/to/GitHubCopilotWorkshop
+   ```
+
+2. **Install Node.js dependencies:**
    ```bash
    npm install
    ```
 
-3. **Start the development server**
+3. **Create environment configuration:**
+   ```bash
+   # Create .env.local file
+   echo "NEXT_PUBLIC_API_URL=http://localhost:8080" > .env.local
+   ```
+
+4. **Start the development server:**
    ```bash
    npm run dev
    ```
+   
+   The frontend will be available at http://localhost:3000
 
-4. **Open the application**
+5. **Open the application:**
    Navigate to [http://localhost:3000](http://localhost:3000) in your browser
 
 ### Choose Your AI Model for GitHub Copilot Chat
