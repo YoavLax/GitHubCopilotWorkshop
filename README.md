@@ -86,6 +86,39 @@ This section provides a quick overview. For detailed setup, see Task 0.
 - ⚡ **Performance Optimization**: Examples for code optimization exercises
 - 🔧 **Error Handling**: Debugging and error resolution practice
 
+## 🏗️ Architecture
+
+This application follows a **microservices architecture** with separated frontend and backend:
+
+### Backend (Python Flask)
+- **Port**: 8080
+- **Purpose**: RESTful API service providing all data endpoints
+- **Key Features**:
+  - CORS-enabled for frontend communication
+  - JSON-based data storage
+  - Comprehensive error handling
+  - Health check endpoint
+
+### Frontend (Next.js 14)
+- **Port**: 3000
+- **Purpose**: User interface and client-side logic
+- **Key Features**:
+  - Server-side rendering (SSR)
+  - TypeScript for type safety
+  - Responsive design with Tailwind CSS
+  - Component library (shadcn/ui)
+
+### Communication Flow
+```
+Browser (localhost:3000)
+    ↓ HTTP Requests
+Next.js Frontend
+    ↓ API Calls (fetch)
+Flask Backend (localhost:8080)
+    ↓ JSON Response
+Frontend renders data
+```
+
 ## 🛠️ Technology Stack
 
 ### Frontend
@@ -886,15 +919,30 @@ Create a weather MCP server that provides weather alerts and forecasts using the
 ## 🆘 Troubleshooting
 
 **Common Issues:**
+
+### Backend Issues
+- **Port 8080 already in use**: Change the port in `backend/app.py` or kill the process using `lsof -ti:8080 | xargs kill -9`
+- **Python dependencies not found**: Ensure virtual environment is activated: `source venv/bin/activate` (macOS/Linux) or `venv\Scripts\activate` (Windows)
+- **CORS errors**: Verify the backend is running and CORS origins in `backend/app.py` match your frontend URL
+
+### Frontend Issues
 - **Copilot not responding**: Check your authentication and license status
-- **API errors**: Verify your environment variables and API keys
+- **API connection errors**: 
+  - Verify backend is running on port 8080
+  - Check `.env.local` has `NEXT_PUBLIC_API_URL=http://localhost:8080`
+  - Test backend directly: `curl http://localhost:8080/api/health`
 - **Build errors**: Run `npm install` to ensure all dependencies are installed
-- **Port conflicts**: Try using a different port with `npm run dev -- -p 3001`
+- **Port 3000 conflicts**: Try using a different port with `npm run dev -- -p 3001`
+
+### Network Issues
+- **Google Fonts errors during build**: This is expected in restricted networks. The app will still work in development mode with `npm run dev`
+- **External API failures**: Some workshop features may require internet access
 
 **Getting Help:**
 - Use GitHub Copilot Chat to debug issues
 - Check the console for error messages
 - Refer to task-specific troubleshooting in each section
+- Review `backend/README.md` for backend-specific help
 
 ## 🤝 Contributing
 
