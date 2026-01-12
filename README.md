@@ -1,5 +1,7 @@
 # GitHub Copilot Workshop - NBA Sports Application
 
+![Workshop Welcome Page](image/welcome-page.png)
+
 Welcome to the comprehensive GitHub Copilot Workshop! This hands-on workshop will teach you to leverage AI-powered development through a real NBA sports application built with **Next.js 14 (Frontend)** and **Python Flask (Backend)**.
 
 ❗**Note**: No mastery of JavaScript, Python, or Next.js is needed - AI will generate most of the code for you in this exercise. Even if you are not very familiar, it's a great opportunity to leverage AI to quickly learn popular frameworks.
@@ -414,17 +416,17 @@ GitHub Copilot assists in fixing code errors by analyzing context to suggest cor
 **Instructions:**
 1. Navigate to the errors page at http://localhost:3000/errors (this is an 'Add NBA player' page)
 2. Fill in the form and click 'Create player' button
-3. If you see an error, ask Copilot to `/explain` the error with context of `frontend/src/app/(dashboard)/errors/page.tsx`
-4. The error page sends a POST request to the backend `/api/players` endpoint
-5. Verify the backend endpoint exists in `backend/app.py` 
-6. The backend endpoint should:
-   - Accept POST requests with player data (name, position, team)
-   - Save the new player to `backend/data/player-info.json`
-   - Return 201 Created status with the new player object
-7. Test the form again - you should now be able to add players successfully and see "Player created successfully!" message
-8. Ask Copilot to rename the page from "errors" to something more descriptive like "add-player"
+3. You should see a 404 error - the API endpoint was not found!
+4. Ask Copilot to `/explain` the error with context of `frontend/src/app/(dashboard)/errors/page.tsx`
+5. The frontend sends a POST request to `/api/players` - but does this route exist in the backend?
+6. Open `backend/app.py` and search for the player creation endpoint
+7. **Find the bug**: Compare the route name in the backend with what the frontend is calling. There's a mismatch!
+8. Fix the route name in `backend/app.py` to match the frontend request
+9. Restart the backend server and test the form again
+10. You should now see "Player created successfully!" message
+11. Ask Copilot to rename the page from "errors" to something more descriptive like "add-player"
 
-**Note**: This exercise demonstrates the connection between frontend and backend in a separated architecture. 
+**Note**: This exercise demonstrates debugging API communication issues between frontend and backend. 
 
 ### 1.8 Create Player Info Feature
 
@@ -458,7 +460,7 @@ GitHub Copilot Chat can help you optimize code (refactor behavior without changi
 2. Click on 'Optimization' page in the web app left menu 
 3. Wait until the page finishes loading - the page is intentionally slow for demonstration purposes
 4. Find the backend API route that serves the optimization data:
-   - Open `backend/app.py` and locate the `/api/optimize` endpoint (around line 246)
+   - Open `backend/app.py` and locate the `/api/optimize` endpoint (around line 198)
 5. **Choose chat model Claude Sonnet 4.5** for best optimization results
 6. Ask Copilot Chat: "Optimize this code to improve performance" while having the `optimize` function in context
 7. The function has an intentionally large prompt string that could be optimized
@@ -998,4 +1000,4 @@ This project is for educational purposes as part of the GitHub Copilot workshop.
 
 ---
 
-**Ready to begin?** Start with [Task 0](#task-0---choose-your-ai-model-for-github-copilot-chat) and begin your GitHub Copilot journey! 🚀
+**Ready to begin?** Start with [Task 0](#task-0---setup--model-selection) and begin your GitHub Copilot journey! 🚀
