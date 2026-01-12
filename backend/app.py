@@ -6,13 +6,14 @@ from flask import Flask, jsonify, request, abort
 from flask_cors import CORS
 import json
 import os
+import time
 
 app = Flask(__name__)
 
 # Enable CORS for frontend communication
 CORS(app, resources={
     r"/api/*": {
-        "origins": ["http://localhost:3000", "http://127.0.0.1:3000"],
+        "origins": ["http://localhost:3000", "http://127.0.0.1:3000", "http://localhost:3001", "http://127.0.0.1:3001"],
         "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
         "allow_headers": ["Content-Type", "Authorization"]
     }
@@ -86,7 +87,9 @@ def get_player_info():
         return jsonify({'error': 'Failed to fetch player information'}), 500
 
 # Players API - Create player endpoint
-@app.route('/api/players', methods=['POST'])
+# TODO: This endpoint is intentionally broken for Task 1.7 workshop exercise
+# Students should use GitHub Copilot to identify and fix this issue
+@app.route('/api/player', methods=['POST'])  # INTENTIONAL ERROR: Wrong route name
 def create_player():
     """Create a new player"""
     try:
@@ -242,10 +245,14 @@ def delete_coach(coach_id):
         print(f'Error deleting coach: {e}')
         return jsonify({'error': 'Failed to delete coach'}), 500
 
-# Optimize endpoint - simplified for demonstration
+# Optimize endpoint - intentionally slow for demonstration
 @app.route('/api/optimize', methods=['GET'])
 def optimize():
-    """Optimize endpoint for token counting demonstration"""
+    """Optimize endpoint for token counting demonstration - INTENTIONALLY SLOW"""
+    # Track start time for execution measurement
+    start_time = time.time()
+    
+    # Intentionally large prompt for demonstration purposes
     prompt = """
 Imagine an ultra-comprehensive NBA game-tracking app, crafted specifically for die-hard fans, fantasy sports players, and analytics enthusiasts. This app goes far beyond simple score updates, delivering real-time, in-depth coverage of every NBA game with a fully immersive experience that combines live data, interactive features, and advanced analytics.
 
@@ -270,13 +277,45 @@ To make the experience even more personal, the app includes a "Customize Experie
 Additionally, the app's "League Trends" section allows users to explore league-wide statistics and trends, such as the season's leaders in different categories, emerging player trends, and comparisons of team strategies. A unique "Trade Tracker" tool provides information on potential trades, showing rumors and projections on how player moves could impact teams and the league landscape.
     """
     
+    # INTENTIONALLY INEFFICIENT RECURSIVE FUNCTIONS for demonstration purposes
+    # These are designed to be slow and should be optimized by students
+    
+    def inefficient_fibonacci(n):
+        """Highly inefficient recursive fibonacci - no memoization"""
+        if n <= 1:
+            return n
+        return inefficient_fibonacci(n - 1) + inefficient_fibonacci(n - 2)
+    
+    def inefficient_factorial(n):
+        """Inefficient recursive factorial with unnecessary string operations"""
+        if n <= 1:
+            return 1
+        # Adding unnecessary string concatenation to slow it down
+        temp = str(n) * 100  # Create large string
+        temp = temp[:10]  # Use only small part (wasteful)
+        return n * inefficient_factorial(n - 1)
+    
+    # Execute inefficient computations
+    # Calculate fibonacci(30) - this takes a few seconds but won't timeout
+    fib_result = inefficient_fibonacci(36)
+    
+    # Calculate factorial with string operations - reduced to avoid timeout
+    factorial_result = inefficient_factorial(500)
+    
+    # Do some unnecessary work with the prompt
+    for char in prompt[:100]:
+        temp_list = [char] * 1000  # Create unnecessary lists
+    
+    # Calculate execution time in seconds
+    execution_time_seconds = time.time() - start_time
+    
     # Simplified token count (approximation: ~4 chars per token)
     token_count = len(prompt) // 4
     
     return jsonify({
         'prompt': prompt,
         'tokenCount': token_count,
-        'executionTime': '0.10'
+        'executionTime': f'{execution_time_seconds:.2f}'
     }), 200
 
 # Summarize endpoint - placeholder
