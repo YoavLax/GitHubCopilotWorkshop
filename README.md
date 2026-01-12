@@ -285,23 +285,26 @@ Select the appropriate AI model based on your task:
 - Click on the GitHub Copilot icon to open a chat
 - Explore the app by asking questions like:
   - Can you tell me about this repository? 
-  - What framework is this repository using? 
-  - Where are the API routes handled?
-  - Which API routes are included in this repository?
-  - Where are the main UI components?
-  - What packages does the app use?
+  - What is the architecture of this application?
+  - Where is the backend API located and what framework is it using?
+  - Where is the frontend located and what framework is it using?
+  - How do the frontend and backend communicate?
+  - Which API endpoints are available in the backend?
+  - Where are the main UI components in the frontend?
+  - What packages does each service use?
 
-### 1.2 Explore Next.js Technology with @github
+### 1.2 Explore Technologies with @github
 
-Use GitHub Copilot's web search capabilities to learn about Next.js 14 features:
+Use GitHub Copilot's web search capabilities to learn about the technologies used in this project:
 
 **Instructions:**
 1. Open GitHub Copilot Chat in Ask mode
 2. Ask these prompts one by one (don't copy-paste):
-   - `@github How do I create an API route in Next.js 14?`
-   - `@github What are Server Actions in Next.js 14?`
-   - `@github How does the routing system work in Next.js 14?`
-   - `@github How to create a ui component in Next.js 14?`
+   - `@github How do I create API endpoints in Flask?`
+   - `@github How does Next.js 14 App Router work?`
+   - `@github How do I fetch data from a backend API in Next.js 14?`
+   - `@github How do I configure CORS in Flask for a Next.js frontend?`
+   - `@github What is the difference between server and client components in Next.js 14?`
 
 By using @github you are: Getting answers grounded in web search, code search, and your enterprise's knowledge bases.
 You can tell that Copilot chat used bing search if you see bing as search resource:
@@ -318,24 +321,34 @@ GitHub Copilot Chat role prompting allows you to define a specific role for Copi
 1. Copy and paste the following combined prompt into the `.github/copilot-instructions.md` file:
 
 ```
-You are a Next.js 14 developer focused on building modern, scalable web applications. Your expertise includes:
+You are a full-stack developer working on a modern web application with a separated architecture:
+- **Frontend**: Next.js 14 with TypeScript, Tailwind CSS, and shadcn/ui components
+- **Backend**: Python Flask API providing RESTful endpoints
 
+Your expertise includes:
+
+Frontend Development:
 - **Framework Mastery**: Deep knowledge of Next.js 14 App Router, routing conventions, layouts, and server/client components
 - **TypeScript Excellence**: Write type-safe code with proper interfaces, generics, and error handling
 - **Modern Styling**: Use Tailwind CSS with shadcn/ui components for consistent, responsive design patterns
-- **API Development**: Create secure, performant Next.js API routes with proper validation and error handling
+- **API Integration**: Fetch data from backend APIs with proper error handling and loading states
 - **Performance Focus**: Implement lazy loading, code splitting, caching strategies, and Core Web Vitals optimization
-- **Testing & Quality**: Generate comprehensive unit tests, integration tests, and follow testing best practices
-- **Accessibility**: Ensure WCAG compliance, semantic HTML, and inclusive design patterns
+
+Backend Development:
+- **API Design**: Create secure, performant Flask REST APIs with proper validation and error handling
+- **CORS Configuration**: Ensure proper cross-origin resource sharing for frontend communication
+- **Data Management**: Work with JSON data files and implement CRUD operations
+- **Python Best Practices**: Follow PEP 8, use type hints, and implement proper error handling
 
 Code Generation Guidelines:
 - Always include comprehensive comments explaining complex logic
 - Implement robust error handling with user-friendly error messages
-- Follow React and Next.js best practices for hooks, state management, and component architecture
-- Optimize for performance with proper memoization, suspense boundaries, and server-side rendering
-- Include loading states, error boundaries, and fallback components
-- Write reusable, composable components that follow single responsibility principle
+- Follow framework best practices for both frontend and backend
+- Optimize for performance with proper memoization, suspense boundaries, and efficient data handling
+- Include loading states, error boundaries, and fallback components in frontend
+- Write reusable, composable components and functions that follow single responsibility principle
 - Ensure responsive design that works across all device sizes
+- Properly configure environment variables for API URLs
 
 When providing solutions:
 - Explain the reasoning behind architectural decisions
@@ -343,21 +356,22 @@ When providing solutions:
 - Include relevant documentation and helpful comments
 - Provide examples of proper error handling and edge cases
 - Recommend best practices for maintainability and scalability
+- Consider both frontend and backend implications of changes
 ```
 
 2. Test the custom instructions by asking Copilot any coding question and notice how it applies the custom instructions automatically
-3. The responses should include TypeScript, error handling, and Next.js 14 patterns
+3. The responses should include TypeScript for frontend, Python for backend, error handling, and proper architectural patterns
 
 ### 1.4 GitHub Copilot Code Reviews
 
 GitHub Copilot can review your code and provide feedback with suggested changes.
 
 **Instructions:**
-1. Open `/src/app/api/nba-results/route.ts`
-2. Select all the file code
+1. Open `backend/app.py`
+2. Select the `get_nba_results` function code
 3. Right-click and choose 'Generate Code -> Review'
 4. Review Copilot's feedback and apply suggested improvements
-5. Repeat for other API routes
+5. Repeat for other API endpoint functions in the backend
 
 ![Review and Comment](image/review-and-comment-comments.png)
 
@@ -366,32 +380,32 @@ GitHub Copilot can review your code and provide feedback with suggested changes.
 One of the common frustrations for developers is documenting their code properly, but Copilot is here to help!
 
 **Instructions:**
-1. Open `/src/app/api/nba-results/route.ts`
+1. Open `backend/app.py`
 2. Use GitHub Copilot Chat to gain insights:
-   - Select the code and choose the `/explain` option for a detailed breakdown
+   - Select the `get_nba_results` function code and choose the `/explain` option for a detailed breakdown
 3. Generate documentation:
    - Select the entire function, then press `Cmd+I` (macOS) or `Ctrl+I` (Windows)
    - Type `/doc` - GitHub Copilot will generate documentation-style comments
-4. Add `/doc` and comments to other API routes
+4. Add `/doc` and comments to other API endpoint functions in the backend
 
 **Notice**: When adding comments, ensure GitHub Copilot Chat applies custom instructions with each request.
 
 ### 1.6 Generate Unit Tests
 
 **Instructions:**
-1. Open `/src/util/calculator.js` - the file contains simple calculator util functions
-2. Open `/src/util/calculator.test.js` (this file should exist but be empty)
+1. Open `frontend/src/util/calculator.js` - the file contains simple calculator util functions
+2. Open `frontend/src/util/calculator.test.js` (this file should exist but be empty)
 3. Select all the code in `calculator.js` and press `Cmd+I` (macOS) or `Ctrl+I` (Windows)
 4. Type `/tests` - GitHub Copilot will generate unit tests for the selected functions
 5. If they weren't created by Copilot in `calculator.test.js`, copy the generated tests into `calculator.test.js`
-6. Run tests: `npm test src/util/calculator.test.js`
+6. From the `frontend` directory, run tests: `npm test src/util/calculator.test.js`
 7. If tests fail, copy the terminal error message, select the failing test code, press `Ctrl+I`/`Cmd+I`, and type `/fix` followed by pasting the error message
 
 **Alternative approach using Chat:**
 - Open GitHub Copilot Chat
-- Attach the `calculator.js` file to the chat
+- Attach the `frontend/src/util/calculator.js` file to the chat
 - Ask: "Generate Jest unit tests for all functions in this calculator file"
-- Copy the generated tests to `calculator.test.js`
+- Copy the generated tests to `frontend/src/util/calculator.test.js`
 
 ### 1.7 Fix Your Code with GitHub Copilot
 
@@ -399,11 +413,18 @@ GitHub Copilot assists in fixing code errors by analyzing context to suggest cor
 
 **Instructions:**
 1. Navigate to the errors page at http://localhost:3000/errors (this is an 'Add NBA player' page)
-2. Fill in the form and click 'Create player' button - you'll see an error (404)
-3. Ask Copilot to `/explain` the error "/explain POST /api/players 404" with context of `/src/app/(dashboard)/errors/page.tsx`
-4. Ask Copilot Chat in Edit mode to fix the error (ask to create the API, providing the page and players data file - `/src/lib/player-info.ts`)
-5. You should now be able to add players
-6. Ask copilot to rename the api route and page to 'Add NBA player'. 
+2. Fill in the form and click 'Create player' button
+3. If you see an error, ask Copilot to `/explain` the error with context of `frontend/src/app/(dashboard)/errors/page.tsx`
+4. The error page sends a POST request to the backend `/api/players` endpoint
+5. Verify the backend endpoint exists in `backend/app.py` 
+6. The backend endpoint should:
+   - Accept POST requests with player data (name, position, team)
+   - Save the new player to `backend/data/player-info.json`
+   - Return 201 Created status with the new player object
+7. Test the form again - you should now be able to add players successfully and see "Player created successfully!" message
+8. Ask Copilot to rename the page from "errors" to something more descriptive like "add-player"
+
+**Note**: This exercise demonstrates the connection between frontend and backend in a separated architecture. 
 
 ### 1.8 Create Player Info Feature
 
@@ -411,15 +432,19 @@ Create a comprehensive player information display using file attachments.
 
 **Instructions:**
 1. Add these files to Chat context (attach files or drag&drop):
-   - `/src/app/api/player-info/route.ts` - API to fetch players data (already exists)
-   - `/src/lib/player-info.ts` - Players data
+   - `backend/app.py` - Look at the `get_player_info` function to understand the API
+   - `backend/data/player-info.json` - Players data
 
 2. Ask Copilot using either edit or agent mode: 
    ```
-   Using the existing player-info API route, create a React component that displays a list of player information showing only the id, name, team, weight, height, and position properties. Ensure each player is displayed in a separate card. Use TailwindCSS and shadcn in your prompt to style the output.
+   Create a new Next.js page at /players-info that fetches player data from the backend API endpoint /api/player-info (running on http://localhost:8080). The page should display a list of player information showing only the id, name, team, weight, height, and position properties. Ensure each player is displayed in a separate card. Use TailwindCSS and shadcn components to style the output. The page should handle loading states and errors appropriately.
    ```
 
-3. Open http://localhost:3000/players-info and verify results
+3. Create the page in `frontend/src/app/(dashboard)/players-info/page.tsx`
+4. The page should fetch from `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080'}/api/player-info`
+5. Open http://localhost:3000/players-info and verify results
+
+**Note**: This demonstrates how the frontend communicates with the backend API to fetch and display data.
 
 
 ### 1.9 Optimize Code With GitHub Copilot
@@ -427,12 +452,20 @@ Create a comprehensive player information display using file attachments.
 GitHub Copilot Chat can help you optimize code (refactor behavior without changing functionality).
 
 **Instructions:**
-1. Click on 'Optimization' page in the web app left menu 
-2. Wait until the page finishes loading (might take ~10s)
-3. Find the API route in the code (use #codebase to help locate it)
-4. **Choose chat model Claude Sonnet 4.5**
-5. Ask Copilot Chat to "optimize this code" while the relevant route.ts is in the chat context
-6. Make necessary adjustments, then reload the page and ensure it loads fast
+1. Start both services:
+   - Terminal 1: `cd backend && python app.py` (backend on port 8080)
+   - Terminal 2: `cd frontend && npm run dev` (frontend on port 3000)
+2. Click on 'Optimization' page in the web app left menu 
+3. Wait until the page finishes loading - the page is intentionally slow for demonstration purposes
+4. Find the backend API route that serves the optimization data:
+   - Open `backend/app.py` and locate the `/api/optimize` endpoint (around line 246)
+5. **Choose chat model Claude Sonnet 4.5** for best optimization results
+6. Ask Copilot Chat: "Optimize this code to improve performance" while having the `optimize` function in context
+7. The function has an intentionally large prompt string that could be optimized
+8. Make the suggested optimizations in `backend/app.py`
+9. Restart the backend server and reload the page to verify it loads faster
+
+**Note**: This demonstrates optimizing backend API performance. The execution time is shown on the page for comparison.
 
 ---
 
@@ -539,27 +572,29 @@ GitHub Copilot's agent mode can iterate on its own code, recognize errors, and f
 **Instructions:**
 1. Open GitHub Copilot Chat, choose agent mode
 2. From the dropdown menu select Agent mode and Claude Sonnet 4.5 model
-3. Include a prompt to generate a new Stadium feature:
+3. Ensure both backend and frontend services are running
+4. Include a prompt to generate a new Stadium feature:
 
 ```
 Let's enhance this application by adding an NBA Stadiums page.
-1. First, create a JSON file containing sample stadium data.
-2. Then, set up a Next.js API route to serve the stadium data from the JSON file.
-3. Build a React component that displays the stadium information as cards.
-4. Add a navigation link to this new component in the main navigation page.
-5. Use Tailwind CSS and ShadCN components to style the UI.
+
+1. First, verify if the backend API endpoint for stadiums already exists in backend/app.py (it should return data from backend/data/stadiums.json).
+2. Create a new Next.js page in frontend/src/app/(dashboard)/stadiums/page.tsx that fetches stadium data from the backend API at ${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080'}/api/stadiums.
+3. Build a React component that displays the stadium information as cards, showing name, location, capacity, and team.
+4. Add a navigation link to this new page in the main navigation (frontend/src/components/navigation.tsx).
+5. Use Tailwind CSS and shadcn components to style the UI.
 ```
 
 **💡 Agent Mode Prompt Guidelines:**
-- **Be specific**: Include exact file paths (`/api/stadiums/route.ts`, `/src/app/(dashboard)/stadiums/page.tsx`)
+- **Be specific**: Include exact file paths (e.g., `backend/app.py` for API endpoints, `frontend/src/app/(dashboard)/stadiums/page.tsx` for frontend pages)
 - **Break into steps**: Number your requirements (1, 2, 3...) - agent mode works best with sequential tasks
-- **Mention technology**: Specify "Next.js 14", "TypeScript", "Tailwind CSS", "shadcn/ui"
+- **Mention technology**: Specify "Next.js 14", "TypeScript", "Tailwind CSS", "shadcn/ui", "Flask", "Python"
 - **Request iteration**: End with "Please implement this step by step and let me review each step"
-- **Include context**: Reference existing project structure and data files
+- **Include context**: Reference existing project structure and data files (backend/data/, frontend/src/)
 
-4. Review the output and monitor live changes in your codebase
-5. Accept or reject each step suggested by the agent
-6. Open the app to verify the Stadiums navigation tab and functionality
+5. Review the output and monitor live changes in your codebase
+6. Accept or reject each step suggested by the agent
+7. Open the app at http://localhost:3000 to verify the Stadiums navigation tab and functionality
 
 ### 3.2 Add Login Screen using GitHub Copilot Vision
 
