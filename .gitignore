@@ -18,15 +18,19 @@ backend/build/
 
 # dependencies
 /node_modules
+frontend/node_modules/
 /.pnp
 .pnp.js
 .yarn/install-state.gz
+frontend/package-lock.json
+frontend/bun.lockb
 
 # testing
 /coverage
 
 # next.js
 /.next/
+frontend/.next/
 /out/
 
 # production

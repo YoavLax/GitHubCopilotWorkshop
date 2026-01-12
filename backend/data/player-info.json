@@ -82,5 +82,33 @@
       "assistsPerGame": 0.0,
       "reboundsPerGame": 0.0
     }
+  },
+  {
+    "id": 7,
+    "name": "LeBron James Jr",
+    "position": "Forward",
+    "team": "Lakers",
+    "height": "N/A",
+    "weight": "N/A",
+    "birthDate": "N/A",
+    "stats": {
+      "pointsPerGame": 0.0,
+      "assistsPerGame": 0.0,
+      "reboundsPerGame": 0.0
+    }
+  },
+  {
+    "id": 8,
+    "name": "",
+    "position": "",
+    "team": "",
+    "height": "N/A",
+    "weight": "N/A",
+    "birthDate": "N/A",
+    "stats": {
+      "pointsPerGame": 0.0,
+      "assistsPerGame": 0.0,
+      "reboundsPerGame": 0.0
+    }
   }
 ]
