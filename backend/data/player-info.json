@@ -68,5 +68,19 @@
       "assistsPerGame": 0.0,
       "reboundsPerGame": 0.0
     }
+  },
+  {
+    "id": 6,
+    "name": "Michael Jordan",
+    "position": "Shooting Guard",
+    "team": "Chicago Bulls",
+    "height": "N/A",
+    "weight": "N/A",
+    "birthDate": "N/A",
+    "stats": {
+      "pointsPerGame": 0.0,
+      "assistsPerGame": 0.0,
+      "reboundsPerGame": 0.0
+    }
   }
 ]
