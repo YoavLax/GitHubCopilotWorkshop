@@ -85,6 +85,46 @@ def get_player_info():
         print(f'Error fetching player info: {e}')
         return jsonify({'error': 'Failed to fetch player information'}), 500
 
+# Players API - Create player endpoint
+@app.route('/api/players', methods=['POST'])
+def create_player():
+    """Create a new player"""
+    try:
+        if not request.json or 'name' not in request.json:
+            return jsonify({'error': 'Name is required'}), 400
+        
+        players = load_json_file('player-info.json')
+        if players is None:
+            players = []
+        
+        new_id = players[-1]['id'] + 1 if players else 1
+        new_player = {
+            'id': new_id,
+            'name': request.json.get('name'),
+            'position': request.json.get('position'),
+            'team': request.json.get('team'),
+            'height': request.json.get('height', 'N/A'),
+            'weight': request.json.get('weight', 'N/A'),
+            'birthDate': request.json.get('birthDate', 'N/A'),
+            'stats': request.json.get('stats', {
+                'pointsPerGame': 0.0,
+                'assistsPerGame': 0.0,
+                'reboundsPerGame': 0.0
+            })
+        }
+        
+        players.append(new_player)
+        
+        # Save to file
+        file_path = os.path.join(os.path.dirname(__file__), 'data', 'player-info.json')
+        with open(file_path, 'w') as file:
+            json.dump(players, file, indent=2)
+        
+        return jsonify(new_player), 201
+    except Exception as e:
+        print(f'Error creating player: {e}')
+        return jsonify({'error': 'Failed to create player'}), 500
+
 # Coaches API
 @app.route('/api/coaches', methods=['GET'])
 def get_coaches():

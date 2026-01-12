@@ -63,6 +63,7 @@ This section provides a quick overview. For detailed setup, see Task 0.
 3. **Set up the Frontend (Next.js) - In a new terminal**
    ```bash
    # From the root directory
+   cd frontend
    npm install
    
    # Create .env.local file with:
@@ -146,19 +147,23 @@ Frontend renders data
 │   │   ├── player-info.json
 │   │   └── coaches.json
 │   └── README.md            # Backend documentation
-├── src/                      # Next.js Frontend
-│   ├── app/                  # Next.js 14 App Router
-│   │   ├── (dashboard)/      # Dashboard layout group
-│   │   │   ├── nba-scores/   # NBA game results
-│   │   │   ├── stadiums/     # Stadium information
-│   │   │   ├── optimization/ # Performance examples
-│   │   │   └── errors/       # Error handling examples
-│   │   └── layout.tsx        # Root layout
-│   ├── components/           # Reusable UI components
-│   │   └── ui/              # shadcn/ui components
-│   ├── lib/                 # Utility functions
-│   └── hooks/               # Custom React hooks
-├── __tests__/               # Test files
+├── frontend/                 # Next.js Frontend
+│   ├── src/                  # Source code
+│   │   ├── app/              # Next.js 14 App Router
+│   │   │   ├── (dashboard)/  # Dashboard layout group
+│   │   │   │   ├── nba-scores/   # NBA game results
+│   │   │   │   ├── stadiums/     # Stadium information
+│   │   │   │   ├── optimization/ # Performance examples
+│   │   │   │   └── errors/       # Error handling examples
+│   │   │   └── layout.tsx    # Root layout
+│   │   ├── components/       # Reusable UI components
+│   │   │   └── ui/          # shadcn/ui components
+│   │   ├── lib/             # Utility functions
+│   │   └── hooks/           # Custom React hooks
+│   ├── public/              # Static assets
+│   ├── __tests__/           # Test files
+│   ├── package.json         # Node.js dependencies
+│   └── tsconfig.json        # TypeScript configuration
 ├── .github/                 # GitHub configuration
 │   ├── copilot-instructions.md # Custom Copilot instructions
 │   ├── chatmodes/           # Custom chat modes
@@ -228,9 +233,9 @@ python app.py      # Start Flask server (port 8080)
    ```
 
 #### Frontend Setup (Next.js)
-1. **Open a new terminal and navigate to the project root:**
+1. **Open a new terminal and navigate to the frontend directory:**
    ```bash
-   cd /path/to/GitHubCopilotWorkshop
+   cd frontend
    ```
 
 2. **Install Node.js dependencies:**

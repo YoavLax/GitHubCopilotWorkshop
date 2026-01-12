@@ -4,8 +4,8 @@
 
 This application has been separated into two independent services following microservices architecture principles:
 
-1. **Backend Service** - Python Flask API (Port 8080)
-2. **Frontend Service** - Next.js 14 Application (Port 3000)
+1. **Backend Service** - Python Flask API (Port 8080) - Located in `/backend`
+2. **Frontend Service** - Next.js 14 Application (Port 3000) - Located in `/frontend`
 
 ## Architecture Diagram
 
@@ -93,7 +93,7 @@ python app.py
 ## Frontend Service (Next.js)
 
 ### Location
-Root directory with `/src` folder
+`/frontend` directory
 
 ### Port
 3000
@@ -108,6 +108,7 @@ Root directory with `/src` folder
 ### Setup
 
 ```bash
+cd frontend
 npm install
 echo "NEXT_PUBLIC_API_URL=http://localhost:8080" > .env.local
 npm run dev
@@ -162,6 +163,7 @@ python app.py
 
 **Terminal 2 - Frontend:**
 ```bash
+cd frontend
 npm run dev
 # Frontend running on http://localhost:3000
 ```
@@ -260,9 +262,9 @@ pip install -r requirements.txt
 3. Restart Flask server
 
 ### Updating Frontend
-1. Update code in `/src`
-2. Update dependencies in `package.json`
-3. Run `npm install` if dependencies changed
+1. Update code in `/frontend`
+2. Update dependencies in `frontend/package.json`
+3. Run `npm install` in the frontend directory if dependencies changed
 4. Restart dev server if needed (or use hot reload)
 
 ## Security Considerations
