@@ -89,6 +89,8 @@ This section provides a quick overview. For detailed setup, see Task 0.
 - ⚡ **Performance Optimization**: Examples for code optimization exercises
 - 🔧 **Error Handling**: Debugging and error resolution practice
 
+> **Note:** The **Press Conferences** navigation entry visible in the app sidebar is not part of any workshop task and can be ignored.
+
 ## 🏗️ Architecture
 
 This application follows a **microservices architecture** with separated frontend and backend:
@@ -168,7 +170,8 @@ Frontend renders data
 │   └── tsconfig.json        # TypeScript configuration
 ├── .github/                 # GitHub configuration
 │   ├── copilot-instructions.md # Custom Copilot instructions
-│   ├── chatmodes/           # Custom chat modes
+│   ├── agents/              # Custom Copilot agents
+│   ├── skills/              # Agent skills
 │   └── prompts/             # Reusable prompt templates
 └── image/                   # Workshop assets and screenshots
 ```
@@ -197,6 +200,7 @@ python app.py      # Start Flask server (port 8080)
 # 📖 Workshop Instructions
 
 ## Task 0 - Setup & Model Selection
+`⏱ ~15 min | 🟢 Beginner`
 
 ### Environment Setup
 
@@ -265,19 +269,20 @@ python app.py      # Start Flask server (port 8080)
 
 Select the appropriate AI model based on your task:
 
-- **GPT-4.1**: Best for general development, UI components, basic API routes, code documentation, and bug fixes
-- **Claude Sonnet 4.5**: Excellent for code optimization, complex problem-solving, agent mode tasks, and performance improvements
+- **GPT-4.1 / GPT-5**: Best for general development, UI components, basic API routes, code documentation, and bug fixes
+- **Claude Sonnet (latest)**: Excellent for code optimization, complex problem-solving, agent mode tasks, and performance improvements
 
 **How to Switch Models**:
 1. Open GitHub Copilot Chat
 2. Look for the model selector dropdown (usually shows current model)
 3. Click to see available options and select your preferred model
 
-![Model Selection](image/chat-model-selection.png)
+![Model Selection](image/modelselection.png)
 
 ---
 
 ## Task 1 - Core Copilot Basics
+`⏱ ~45 min | 🟢 Beginner`
 
 ### 1.1 Repository Exploration 
 
@@ -295,25 +300,21 @@ Select the appropriate AI model based on your task:
   - Where are the main UI components in the frontend?
   - What packages does each service use?
 
-### 1.2 Explore Technologies with @github
+### 1.2 Explore Technologies with Copilot
 
-Use GitHub Copilot's web search capabilities to learn about the technologies used in this project:
+Use GitHub Copilot Chat to learn about the technologies used in this project, grounded in the actual codebase.
 
 **Instructions:**
-1. Open GitHub Copilot Chat in Ask mode
-2. Ask these prompts one by one (don't copy-paste):
-   - `@github How do I create API endpoints in Flask?`
-   - `@github How does Next.js 14 App Router work?`
-   - `@github How do I fetch data from a backend API in Next.js 14?`
-   - `@github How do I configure CORS in Flask for a Next.js frontend?`
-   - `@github What is the difference between server and client components in Next.js 14?`
+1. Open GitHub Copilot Chat in **Ask mode**
+2. Add `#codebase` to your prompts (or attach specific files) so Copilot answers in the context of this project
+3. Ask these prompts one by one:
+   - `How do API endpoints work in Flask? Show me an example from #codebase`
+   - `What is the App Router pattern in Next.js 14? Where is it used in #codebase?`
+   - `How does this project handle CORS between frontend and backend?`
+   - `What is the difference between server and client components in Next.js 14? Are there examples in #codebase?`
+   - `How does the frontend fetch data from the backend API? Show me an example from #codebase`
 
-By using @github you are: Getting answers grounded in web search, code search, and your enterprise's knowledge bases.
-You can tell that Copilot chat used bing search if you see bing as search resource:
-
-![Bing Search](image/copilot-bing-search.png)
-
-> Troubleshoot: If you don't see Bing in references, try prompting with "@github search the web, how do I..."
+> **Tip:** Compare the answers you get with `#codebase` vs without — Copilot's responses will be more specific and actionable when it has project context.
 
 ### 1.3 Role Prompting and Custom Instructions
 
@@ -364,6 +365,10 @@ When providing solutions:
 2. Test the custom instructions by asking Copilot any coding question and notice how it applies the custom instructions automatically
 3. The responses should include TypeScript for frontend, Python for backend, error handling, and proper architectural patterns
 
+---
+> **1.1–1.3: Exploration & Context** — Getting to know the project and configuring Copilot
+---
+
 ### 1.4 GitHub Copilot Code Reviews
 
 GitHub Copilot can review your code and provide feedback with suggested changes.
@@ -391,6 +396,8 @@ One of the common frustrations for developers is documenting their code properly
 4. Add `/doc` and comments to other API endpoint functions in the backend
 
 **Notice**: When adding comments, ensure GitHub Copilot Chat applies custom instructions with each request.
+
+> 💡 **Next Edit Suggestions (NES)**: After making a change in `backend/app.py`, notice that Copilot automatically predicts *where you'll edit next* in the file and pre-fills the suggestion. Accept it with `Tab` to jump directly to the next logical change location. This feature (introduced in VS Code 1.99) works across the entire file — not just the current line.
 
 ### 1.6 Generate Unit Tests
 
@@ -461,7 +468,7 @@ GitHub Copilot Chat can help you optimize code (refactor behavior without changi
 3. Wait until the page finishes loading - the page is intentionally slow for demonstration purposes
 4. Find the backend API route that serves the optimization data:
    - Open `backend/app.py` and locate the `/api/optimize` endpoint (around line 198)
-5. **Choose chat model Claude Sonnet 4.5** for best optimization results
+5. **Choose chat model Claude Sonnet (latest)** for best optimization results
 6. Ask Copilot Chat: "Optimize this code to improve performance" while having the `optimize` function in context
 7. The function has an intentionally large prompt string that could be optimized
 8. Make the suggested optimizations in `backend/app.py`
@@ -469,25 +476,32 @@ GitHub Copilot Chat can help you optimize code (refactor behavior without changi
 
 **Note**: This demonstrates optimizing backend API performance. The execution time is shown on the page for comparison.
 
+> ✅ **Task 1 Checkpoint**: Before moving on, you should have: documented backend functions, passing unit tests for the calculator, a working `/players-info` page, and a faster-loading optimization page.
+
 ---
 
 ## Task 2 - Intermediate Copilot Features
+`⏱ ~20 min | 🟡 Intermediate`
 
-### 2.1 Advanced Chat Features: Custom Chat Modes
+### 2.1 Advanced Chat Features: Custom Agents
 
-GitHub Copilot supports custom chat modes that create specialized AI assistants for specific tasks.
+GitHub Copilot supports custom agents (`.agent.md` files) that create specialized AI assistants for specific tasks, with defined tools, model preferences, and instructions.
 
 **Instructions:**
-1. **Explore existing modes**:
-   - Navigate to `.github/chatmodes/` directory 
-   - Open `plan.chatmode.md` to see the configuration
-   - In Copilot Chat, try using custom modes from the model dropdown
+1. **Explore existing agents**:
+   - Navigate to `.github/agents/` directory
+   - Open `plan.agent.md` to see the configuration format (description, tools, model, instructions)
+   - In Copilot Chat, try switching to a custom agent from the mode dropdown
 
-2. **Create Your Own Custom Mode**:
-   - Create a new file: `.github/chatmodes/reviewer.chatmode.md`
-   - Add the following content for a code review mode:
+2. **Create Your Own Custom Agent**:
+   - Create a new file: `.github/agents/reviewer.agent.md`
+   - Add the following content for a code review agent:
 
 ```markdown
+---
+description: Thorough code reviewer focused on best practices and maintainability.
+tools: ['codebase', 'search', 'usages']
+---
 # Code Reviewer
 
 You are a thorough code reviewer focused on best practices and maintainability.
@@ -502,9 +516,9 @@ You are a thorough code reviewer focused on best practices and maintainability.
 - Suggest improvements for readability
 ```
 
-   - Use the new mode from the mode picker
+   - Select the new agent from the agent picker in Copilot Chat
 
-**Why Custom Modes Are Powerful**:
+**Why Custom Agents Are Powerful**:
 - Domain-specific expertise and context
 - Standardized workflows and best practices
 - Reduced need for detailed prompting
@@ -548,7 +562,7 @@ The rollback feature allows you to edit previous prompts and reapply changes wit
    - Ask Copilot Chat to create a simple NBA player card component
    - After receiving the response, click on your original prompt in the chat history
    - Edit the prompt to request additional features (e.g., "also add player statistics and hover effects")
-   - Switch to a different model (e.g., from GPT-4.1 to Claude Sonnet 4.5)
+   - Switch to a different model (e.g., from GPT-4.1 to Claude Sonnet)
    - Apply the changes and observe how Copilot reverts and reapplies with the new context
 
 2. **Advanced Rollback Scenarios**:
@@ -563,9 +577,12 @@ The rollback feature allows you to edit previous prompts and reapply changes wit
 - Efficient prompt refinement
 - Better model comparison and selection
 
+> ✅ **Task 2 Checkpoint**: Before moving on, you should have: a working `reviewer.agent.md` custom agent, a reusable `api-security.prompt.md` prompt file, and experience with the chat rollback workflow.
+
 ---
 
 ## Task 3 - Copilot Agent Mode
+`⏱ ~30 min | 🟡 Intermediate`
 
 ### 3.1 Add Stadiums Feature using GitHub Copilot Agents
 
@@ -573,7 +590,7 @@ GitHub Copilot's agent mode can iterate on its own code, recognize errors, and f
 
 **Instructions:**
 1. Open GitHub Copilot Chat, choose agent mode
-2. From the dropdown menu select Agent mode and Claude Sonnet 4.5 model
+2. From the dropdown menu select Agent mode and Claude Sonnet (latest) model
 3. Ensure both backend and frontend services are running
 4. Include a prompt to generate a new Stadium feature:
 
@@ -603,23 +620,29 @@ Let's enhance this application by adding an NBA Stadiums page.
 You can attach an example image and work with it directly in Copilot Chat.
 
 **Instructions:**
-1. Open Copilot Chat and select Claude Sonnet 4.5 model
-2. Enable preview feature: chat.todoListTool.enable (Supported in VSCode version 1.103 and above)
-3. Navigate to the image folder and attach `login.png` to your chat
-4. Ask Copilot using agent mode: 
+1. Open Copilot Chat and select Claude Sonnet (latest) model
+2. Navigate to the image folder and attach `login.png` to your chat (You need to replace it with an actual image of a login screen)
+3. Ask Copilot using agent mode: 
    ```
    Write a React component code based on login.png image.
    Track your progress with a todo list. 
    ```
-5. Integrate the component into your application
+4. Integrate the component into your application
+
+> ✅ **Task 3 Checkpoint**: Before moving on, you should have: a working `/stadiums` page with data from the backend, and a new React login component generated from the image.
 
 ---
 
 ## Task 4 - MCP Servers
+`⏱ ~30 min | 🔴 Advanced`
+
+> **MCP Servers vs. Copilot Extensions**: There are two ways to extend Copilot with external tools:
+> - **MCP Servers** (this task) — open standard for connecting any tool/data source to agent mode. You add them yourself via the tools icon.
+> - **Copilot Extensions** — built-in participants like `@azure` and `@docker` available directly in Copilot Chat without any setup. Try typing `@` in the chat to see what's available in your IDE.
 
 ### Prerequisites
-- GitHub PAT (Personal Access Token)
-- Azure DevOps PAT (Personal Access Token) (optional)
+- GitHub authentication — **OAuth recommended** (sign in via browser when prompted); a Personal Access Token (PAT) also works
+- Azure DevOps authentication — **OAuth recommended**; a Personal Access Token (PAT) also works (optional)
 
 1. **Switch to Agent Mode**:
    - Open GitHub Copilot Chat and select Agent mode
@@ -756,18 +779,25 @@ Want to create a custom skill for your team? Follow these steps:
 
 ---
 
-## Task 5 - Github Copilot Coding Agent
+> ✅ **Task 4 Checkpoint**: Before moving on, you should have connected at least one MCP server (e.g. Playwright or GitHub) and run an automated test flow against the running NBA app.
+
+## Task 5 - GitHub Copilot Coding Agent
+`⏱ ~15 min | 🟡 Intermediate`
 1. **Create a new issue in this GitHub repository**:
 Example:   
    - Title: `Create dark mode toggle for this web app`
    - Description: `Create a dark mode ability for this web app, it should be a toggle on the top right corner of the page`
-2. **Assign the issue to copilot**
+2. **Assign the issue to an AI agent**
    - Click on "Assignees"
-   - Select "Copilot"
+   - Select the agent you want to use: **Copilot**, **Codex**, or **Claude**
+   - You can also specify the model (e.g. Claude Sonnet, GPT-4.1) after selecting the agent
 3. **PR should be created automatically by Copilot**
    - You will be called to review once the PR is complete.
 
-## Task 6 -Use Extensions for managing Instructions, Prompts and Chat Modes
+> ✅ **Task 5 Checkpoint**: You should have an open PR on your repository created by Copilot. Review the diff and merge or close it.
+
+## Task 6 - Use Extensions for Managing Instructions, Prompts and Chat Modes
+`⏱ ~10 min | 🟢 Beginner`
 
 1. Open the extensions marketplace in your IDE
 2. Search for "Effective AI Kit" and install it
@@ -781,6 +811,7 @@ Example:
 ---
 
 ## Task 7 - GitHub Copilot CLI
+`⏱ ~30 min | 🟡 Intermediate`
 
 GitHub Copilot CLI is a powerful terminal-based AI assistant that brings the full capabilities of GitHub Copilot directly to your command line. Unlike traditional CLI tools, Copilot CLI works as an interactive agent that can understand your codebase, make changes, and help you build features through natural language conversations.
 
@@ -788,21 +819,26 @@ GitHub Copilot CLI is a powerful terminal-based AI assistant that brings the ful
 
 **Step 1: Install Copilot CLI**
 
-**macOS/Linux:**
+**macOS/Linux (npm):**
 ```bash
 # Install using npm (recommended)
-npm install -g @githubnext/github-copilot-cli
+npm install -g @github/copilot
+```
+
+**macOS (Homebrew):**
+```bash
+brew install copilot-cli
 ```
 
 **Windows:**
 ```powershell
 # Install using npm
-npm install -g @githubnext/github-copilot-cli
+npm install -g @github/copilot
 ```
 
 **Step 2: Verify Installation**
 ```bash
-copilot --version
+copilot
 ```
 
 **Step 3: Open your workspace**
@@ -835,12 +871,19 @@ Once Copilot CLI is running, you can switch models using the `/model` slash comm
 /model
 ```
 
-Usefull command:
+Useful slash commands:
 ```
-/share → Share session to markdown file or GitHub gist
-/mcp → Manage MCP server configurations
-/usage → Display session usage metrics and statistics
+/plan      → Outline the work before coding (recommended starting point)
+/model     → Switch AI model mid-session
+/fleet     → Execute tasks with parallelized sub-agents
+/mcp       → Manage MCP server configurations
+/agent     → Switch or configure custom agents
+/resume    → Return to a previous session
+/delegate  → Create a branch, implement a change, and open a PR
+/share     → Share session to markdown file or GitHub gist
 ```
+
+> **Note:** Copilot CLI is available on all GitHub Copilot tiers, including Free.
 
 **Basic Usage:**
 
@@ -894,7 +937,8 @@ Display the data in a sortable table.
 Add this page to the navigation menu.
 ```
 
-## Task 8 - Build Your Own MCP Server (Bonus) - New Project
+## Task 8 - Build Your Own MCP Server ⭐ Bonus - New Project
+`⏱ ~45 min | 🔴 Advanced`
 
 Create a new project to build your own MCP server.
 
@@ -947,8 +991,12 @@ Create a weather MCP server that provides weather alerts and forecasts using the
 1. **Start with Task 0** - Set up your environment and model selection
 2. **Progress through Task 1 systematically** - Each sub-task builds on previous knowledge
 3. **Continue with Task 2** - Intermediate features and advanced chat capabilities
-4. **Experience Task 3** - Agent mode capabilities
-5. **Try Bonus Tasks 4-5** - For advanced workflows and integrations
+4. **Experience Task 3** - Agent mode and Vision capabilities
+5. **Explore Task 4** - MCP servers and agent skills
+6. **Try Task 5** - GitHub Copilot Coding Agent
+7. **Try Task 6** - Extensions for managing instructions and prompts
+8. **Try Task 7** - GitHub Copilot CLI
+9. **Bonus: Task 8** - Build your own MCP server
 
 ## 💡 Tips for Success
 
