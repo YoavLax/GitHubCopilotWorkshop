@@ -376,7 +376,7 @@ GitHub Copilot can review your code and provide feedback with suggested changes.
 **Instructions:**
 1. Open `backend/app.py`
 2. Select the `get_nba_results` function code
-3. Right-click and choose 'Generate Code -> Review'
+3. Right-click and choose 'Review'
 4. Review Copilot's feedback and apply suggested improvements
 5. Repeat for other API endpoint functions in the backend
 
@@ -405,7 +405,7 @@ One of the common frustrations for developers is documenting their code properly
 1. Open `frontend/src/util/calculator.js` - the file contains simple calculator util functions
 2. Open `frontend/src/util/calculator.test.js` (this file should exist but be empty)
 3. Select all the code in `calculator.js` and press `Cmd+I` (macOS) or `Ctrl+I` (Windows)
-4. Type `/tests` - GitHub Copilot will generate unit tests for the selected functions
+4. Type `/testing-strategy` - GitHub Copilot will generate unit tests for the selected functions
 5. If they weren't created by Copilot in `calculator.test.js`, copy the generated tests into `calculator.test.js`
 6. From the `frontend` directory, run tests: `npm test src/util/calculator.test.js`
 7. If tests fail, copy the terminal error message, select the failing test code, press `Ctrl+I`/`Cmd+I`, and type `/fix` followed by pasting the error message

@@ -1,5 +1,5 @@
 ---
-name: WebApp Testing
+name: webapp-testing
 description: Automated UI testing for web applications using Playwright with comprehensive test coverage and reporting
 ---
 
