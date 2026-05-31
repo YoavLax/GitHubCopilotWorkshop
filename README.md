@@ -615,7 +615,18 @@ Let's enhance this application by adding an NBA Stadiums page.
 6. Accept or reject each step suggested by the agent
 7. Open the app at http://localhost:3000 to verify the Stadiums navigation tab and functionality
 
-### 3.2 Add Login Screen using GitHub Copilot Vision
+### 3.2 Measure AI Costs with AI Contribution Tracker
+
+Track how much AI assistance is being used — and what it costs — on a per-commit basis directly in VS Code.
+
+**Instructions:**
+1. Install the [AI Contribution Tracker](https://marketplace.visualstudio.com/items?itemName=YoavLax.ai-contribution-tracker) extension from the VS Code Marketplace
+2. Once installed, the extension tracks AI usage across your commits, giving you visibility into:
+   - How much of each commit was AI-assisted
+   - Estimated cost of Copilot usage per commit
+3. Use this data to understand your team's AI adoption and measure ROI on Copilot usage
+
+### 3.3 Add Login Screen using GitHub Copilot Vision
 
 You can attach an example image and work with it directly in Copilot Chat.
 
@@ -629,7 +640,7 @@ You can attach an example image and work with it directly in Copilot Chat.
    ```
 4. Integrate the component into your application
 
-> ✅ **Task 3 Checkpoint**: Before moving on, you should have: a working `/stadiums` page with data from the backend, and a new React login component generated from the image.
+> ✅ **Task 3 Checkpoint**: Before moving on, you should have: a working `/stadiums` page with data from the backend, a new React login component generated from the image, and the AI Contribution Tracker extension installed.
 
 ---
 
